@@ -5,8 +5,7 @@ import { fetchContents } from './actions'
 
 import Pages from './Pages'
 
-const mapStateToProps = ({ loading }) => ({
-  loading
+const mapStateToProps = ({}) => ({
 })
 
 class App extends Component {
@@ -21,17 +20,12 @@ class App extends Component {
   }
 
   render() {
-    const { loading } = this.props
-    if (loading) {
-      return <p>ロード中です。</p>
-    } else {
       return (
         <div>
           <Pages />
         </div>
       )
     }
-  }
 }
 
 export default connect(mapStateToProps)(App)

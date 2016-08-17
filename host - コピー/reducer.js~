@@ -12,14 +12,8 @@ const reducer = concatenateReducers([
     }),
     'matched': (_, { payload: { participants, groups } }) => ({
       participants, groups
-    }),
-    'invest': ({ participants }, { payload: { id, investment } }) => {
-      const result = Object.assign({}, participants)
-      result[id].invested = true
-      result[id].investment = investment
-      return { participants: result }
-    }
-  }, {}),
+    })
+  }),
   handleAction('update contents', () => ({ loading: false }), { loading: true })
 ])
 

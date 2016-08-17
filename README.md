@@ -1,1 +1,1 @@
-# beauty_contest
+# Beauty Contest

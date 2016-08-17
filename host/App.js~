@@ -3,12 +3,9 @@ import { connect } from 'react-redux'
 
 import { fetchContents } from './actions'
 
-import Users from './Users'
-import MatchingButton from './MatchingButton'
 import PageButtons from './PageButtons'
 
-const mapStateToProps = ({loading}) => ({
-  loading
+const mapStateToProps = ({}) => ({
 })
 
 class App extends Component {
@@ -23,18 +20,12 @@ class App extends Component {
   }
 
   render() {
-    const { loading } = this.props
-    if (loading) {
-      return <p>„É≠„Éº„Éâ‰∏≠„Åß„Åô„ÄÇ</p>
-    } else {
       return (
         <div>
+	  <p>Ç†Ç†Ç†Ç†Ç†</p>
           <PageButtons />
-          <MatchingButton />
-          <Users />
         </div>
-      )
-    }
+	)
   }
 }
 

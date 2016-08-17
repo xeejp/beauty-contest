@@ -6,6 +6,9 @@ function* changePageSaga() {
   while (true) {
     const { payload } = yield take(`${submitPage}`)
     sendData('change page', payload)
+    if (payload == 'description') {
+      yield put(match())
+    }
     yield put(changePage(payload))
   }
 }

@@ -1,6 +1,6 @@
 import { put, take, call, fork } from 'redux-saga/effects'
 
-import { fetchContents, submitNumber } from './actions'
+import { fetchContents, submitInvestment } from './actions'
 
 function* fetchContentsSaga() {
   while (true) {

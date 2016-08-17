@@ -8,11 +8,9 @@ const mapStateToProps = ({}) => ({
 })
 
 const Experiment = ({}) => (() => {
-	return (
 	<div>
-		<Input />
+	<Input />
 	</div>
-	)
 })()
 
 export default connect()(Experiment)

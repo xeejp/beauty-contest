@@ -9,7 +9,7 @@ const mapStateToProps = ({}) => ({
 
 const Waiting = ({}) => (
 	<Card>
-		<CardTitle title="美人投票ゲーム" subtitle="待機画面" />
+		<CardTitle title="公共財実験" subtitle="待機画面" />
 		<CardText>
 			<p>参加者の登録を待っています。</p>
 			<p>この画面のまましばらくお待ち下さい。</p>

@@ -1,5 +1,6 @@
+var path = require('path');
+
 module.exports = {
-  devtool: 'eval',
   entry: {
     host: ["babel-polyfill", "./host/index.js"],
     participant: ["babel-polyfill", "./participant/index.js"],
@@ -16,11 +17,14 @@ module.exports = {
     }]
   },
   resolve: {
+    root: [
+      path.resolve('./')
+    ],
     extensions: [
       "", ".js"
     ],
     modulesDirectories: [
-      "node_modules", "./"
+      "node_modules",
     ]
   }
 };

@@ -7,6 +7,7 @@ const reducer = concatenateReducers([
   handleActions({
     'update contents': (_, { payload }) => payload,
     'change page': (_, { payload }) => ({ page: payload }),
+    'matched': (_, { payload }) => payload
   }),
   handleAction('update contents', () => ({ loading: false }), { loading: true }),
 ])
