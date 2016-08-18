@@ -6,10 +6,11 @@ import RaisedButton from 'material-ui/RaisedButton'
 import SnackBar from 'material-ui/SnackBar'
 
 import { submitNumber } from './actions'
+import Waiting_inputed  from  './Waiting_inputed'
 	       
-const mapStateToProps = (number) => {
-	number
-}
+const mapStateToProps = ({ inputed }) => ({
+	inputed
+})
 
 class Input extends Component {
   	constructor(props) {
@@ -39,6 +40,7 @@ class Input extends Component {
 	
 	handleClick() {
 		const { dispatch } = this.props
+		const { value } = this.state
 		this.setState({
 			value: '',
 			isValid: false,
@@ -56,28 +58,33 @@ class Input extends Component {
 
 	render() {
 		const { value, snack, isValid } = this.state
-		return(
-			<div> 
-			<p>数字を入力してください</p>
-			<TextField
-	      		 hintText="0～100までの整数を入力してください"
-			 value = {value}
-			 onChange={this.handleChange.bind(this)}
-			 onKeyDown={this.handleKeyDown.bind(this)}
-	    		/>
-			<RaisedButton
-			  primary={true}
-			  disabled={!isValid}
-			  onClick = {this.handleClick.bind(this)}
-			>送信</RaisedButton>
-			<SnackBar
-          		   open={snack}
-          		   message={'送信しました。'}
-          		   autoHideDuration={3000}
-          	 	   onRequestClose={this.closeSnack.bind(this)}
-        		/>
-			</div>
-		)
+		const { inputed } = this.props
+		if(!inputed && !snack){
+			return(
+				<div> 
+				<p>数字を入力してください</p>
+				<TextField
+		      		 hintText="0～100までの整数を入力してください"
+				 value = {value}
+				 onChange={this.handleChange.bind(this)}
+				 onKeyDown={this.handleKeyDown.bind(this)}
+		    		/>
+				<RaisedButton
+				  primary={true}
+				  disabled={!isValid}
+				  onClick = {this.handleClick.bind(this)}
+				>送信</RaisedButton>
+				<SnackBar
+        	  		   open={snack}
+        	  		   message={'送信しました。'}
+        	  		   autoHideDuration={3000}
+        	  	 	   onRequestClose={this.closeSnack.bind(this)}
+        			/>
+				</div>
+			)
+		}else  {
+			return	< Waiting_inputed />
+		}
 	}
 }
 

@@ -45,7 +45,7 @@ defmodule Beauty do
     Logger.debug("[Public Goods] #{action} #{params}")
     result = case {action, params} do
       {"fetch contents", _} -> Participant.fetch_contents(data, id)
-      {"submit number", _} -> Participant.submit_number(data,id)
+      {"input", number} -> Participant.input(data,id, number)
     end
     wrap_result(result)
   end

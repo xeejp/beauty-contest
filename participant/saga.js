@@ -11,8 +11,8 @@ function* fetchContentsSaga() {
 
 function* submitNumberSaga() {
   while(true) {
-	yield take(`${submitNumber}`)
-	yield call(sendData, 'submit number')
+	const { payload: { number } } = yield take(`${submitNumber}`)
+	yield call(sendData, 'input', number)
   }
 }
 

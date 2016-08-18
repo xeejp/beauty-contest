@@ -9,7 +9,8 @@ const reducer = concatenateReducers([
     'change page': (_, { payload }) => ({ page: payload }),
     'input': (_, { payload : number }) => {
 	return { number ,inputed: true}
-    }
+    },
+    'init': (_, { payload }) => payload
   },{}),
   handleAction('update contents', () => ({ loading: false }), { loading: true }),
 ])

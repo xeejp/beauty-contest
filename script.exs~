@@ -35,6 +35,7 @@ defmodule Beauty do
     result = case {action, params} do
       {"fetch contents", _} -> Host.fetch_contents(data)
       {"change page", page} -> Host.change_page(data, page)
+      {"init participant",_} -> Host.init_participant(data)
       _ -> {:ok, %{"data" => data}}
     end
     wrap_result(result)
@@ -45,6 +46,7 @@ defmodule Beauty do
     Logger.debug("[Public Goods] #{action} #{params}")
     result = case {action, params} do
       {"fetch contents", _} -> Participant.fetch_contents(data, id)
+      {"input", number} -> Participant.input(data,id, number)
     end
     wrap_result(result)
   end

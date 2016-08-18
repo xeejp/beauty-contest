@@ -1,6 +1,6 @@
 import { put, take, call, fork } from 'redux-saga/effects'
 
-import { fetchContents, submitInvestment } from './actions'
+import { fetchContents, submitNumber } from './actions'
 
 function* fetchContentsSaga() {
   while (true) {
@@ -11,8 +11,8 @@ function* fetchContentsSaga() {
 
 function* submitNumberSaga() {
   while(true) {
-	yield take(`${submitNumber}`)
-	yield call(sendData, 'submit number')
+	const { payload: { number } } = yield take(`${submitNumber}`)
+	yield call(sendData, 'submit number', number)
   }
 }
 

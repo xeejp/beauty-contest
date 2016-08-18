@@ -6,7 +6,11 @@ defmodule Beauty.Participant do
     Actions.update_participant_contents(data, id)
   end
 
-  def submit_number(data, id)do
+  def input(data, id, number)do
+  	data = data
+		|> put_in([:participants, id ,:inputed], true)
+		|> put_in([:participants, id ,:number], number)
+	Actions.input(data, id)
   end
 
   # Utilities
@@ -21,6 +25,9 @@ defmodule Beauty.Participant do
 
   def format_contents(data, id) do
     %{participants: participants} = data
+    %{data: data} = data
     participant = Map.get(participants, id)
+    Map.put(participant , :data , data)
+    participant
   end
 end

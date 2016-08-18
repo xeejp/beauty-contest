@@ -17,6 +17,11 @@ defmodule Beauty.Host do
     end
   end
   
+  def init_participant(data) do
+    data
+    |> Actions.init_participant()
+  end
+  
 # Utilities
   def format_contents(data) do
     data

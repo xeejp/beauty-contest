@@ -14,7 +14,8 @@ defmodule Beauty.Main do
 
   def new_participant do
     %{
-    	number: 0
+    	number: 0,
+	inputed: false,
     }
   end
 

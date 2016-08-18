@@ -4,8 +4,10 @@ import { connect } from 'react-redux'
 import { fetchContents } from './actions'
 
 import PageButtons from './PageButtons'
+import Users from './Users'
 
-const mapStateToProps = ({}) => ({
+const mapStateToProps = ({ loading }) => ({
+  loading
 })
 
 class App extends Component {
@@ -20,11 +22,17 @@ class App extends Component {
   }
 
   render() {
+      const { loading } = this.props
+    if (loading) {
+      return <p>ÉçÅ[ÉhíÜÇ≈Ç∑ÅB</p>
+    } else {
       return (
         <div>
           <PageButtons />
+          <Users />
         </div>
-	)
+      )
+    }
   }
 }
 

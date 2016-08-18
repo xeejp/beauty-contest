@@ -3,16 +3,15 @@ import { connect } from 'react-redux'
 
 import Input from './Input'
 
-const mapStateToProps = ({}) => ({
- 
+const mapStateToProps = ({ inputed }) => ({
+ inputed
 })
 
-const Experiment = ({}) => (() => {
-	return (
-	<div>
-		<Input />
-	</div>
-	)
-})()
+const Experiment = ({ inputed }) => (() => {
+	return(
+		<div>
+			<Input />
+		</div>
+		)})()
 
-export default connect()(Experiment)
+export default connect(mapStateToProps)(Experiment)

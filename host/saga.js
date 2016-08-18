@@ -1,6 +1,6 @@
 import { put, take, call, select, fork } from 'redux-saga/effects'
 
-import { fetchContents, match, nextPage, submitPage, changePage } from './actions'
+import { fetchContents, nextPage, submitPage, changePage } from './actions'
 
 function* changePageSaga() {
   while (true) {

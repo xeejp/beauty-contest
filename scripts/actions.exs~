@@ -30,6 +30,11 @@ defmodule Beauty.Actions do
     format(data, host, participant)
   end
 
+  def init_participant(data) do
+    action = get_action("init", Main.new_participant())
+    format(data,nil,dispatch_to_all(data, action))
+  end
+
   # Utilities
 
   defp get_action(type, params) do
