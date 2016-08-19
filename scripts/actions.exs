@@ -9,7 +9,7 @@ defmodule Beauty.Actions do
   end
 
   def join(data, id, participant) do
-    action = get_action("join", %{id: id, participant: participant})
+    action = get_action("join", %{id: id, participant: participant,actives_data: data.actives})
     format(data, action)
   end
 
@@ -19,16 +19,48 @@ defmodule Beauty.Actions do
   end
 
   def update_participant_contents(data, id) do
+    if data.page == "wating" do
+       data = data
+               |>put_in([:participants, id ,:active], true)
+    end
     participant = dispatch_to(id, get_action("update contents", Participant.format_contents(data, id)))
     format(data, nil, participant)
   end
   
   def input(data, id) do
     number = get_in(data,[:participants, id, :number])
-    host = get_action("input", %{id: id, number: number})
+    inputs = get_in(data,[:inputs])
+    host = get_action("input", %{id: id, number: number, inputs: inputs})
     participant = dispatch_to(id, get_action("input", number))
     format(data, host, participant)
-  end
+  end 
+
+  def set_data(data) do
+    host = get_action("set_data", %{
+    	participants_data: data.participants,
+    	inputs: 0,
+    	})
+    action = get_action("set_data", %{
+    	number: 0,
+	inputed: false,
+	})
+    format(data,host,dispatch_to_all(data,action))
+    end
+
+    def all_reset(data) do
+    host = get_action("all_reset", %{
+    	participants_data: data.participants,
+    	inputs: 0,
+	actives_data: data.actives,
+    	})
+    action = get_action("all_reset", %{
+    	number: 0,
+	inputed: false,
+	active: true,
+	})
+    format(data,host,dispatch_to_all(data,action))
+    end
+
 
   # Utilities
 

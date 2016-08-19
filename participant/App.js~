@@ -9,6 +9,10 @@ const mapStateToProps = ({loading}) => ({
    loading
 })
 
+const mapDispatchToProps = (dispatch) => ({
+   fetchContents: bindActionCreators(fetchContents, dispatch)
+})
+
 class App extends Component {
   constructor(props, context) {
     super(props, context)
@@ -16,9 +20,10 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const { dispatch } = this.props
-    dispatch(fetchContents())
+    const { fetchContents } = this.props
+    fetchContents()  
   }
+
   render() {
       const { loading } = this.props
       if(loading){

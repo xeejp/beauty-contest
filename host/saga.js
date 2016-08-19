@@ -1,11 +1,17 @@
 import { put, take, call, select, fork } from 'redux-saga/effects'
 
-import { fetchContents, nextPage, submitPage, changePage } from './actions'
+import { fetchContents, nextPage, submitPage, changePage} from './actions'
 
 function* changePageSaga() {
   while (true) {
     const { payload } = yield take(`${submitPage}`)
     sendData('change page', payload)
+    if (payload == 'experiment'){
+	    yield call(sendData, 'set_data')
+    }
+    if (payload == 'waiting'){
+	    yield call(sendData, 'all_reset')
+    }
     yield put(changePage(payload))
   }
 }

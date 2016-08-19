@@ -10,7 +10,9 @@ const reducer = concatenateReducers([
     'input': (_, { payload : number }) => {
 	return { number ,inputed: true}
     },
-    'init': (_, { payload }) => payload
+    'set_data': (_, { payload : { number , inputed } } ) => ({
+	    number: 0,inputed: false
+    })
   },{}),
   handleAction('update contents', () => ({ loading: false }), { loading: true }),
 ])

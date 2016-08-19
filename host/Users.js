@@ -25,23 +25,13 @@ const UsersList = ({participants}) => (
   </table>
 )
 
-function Inputed_Number({participants}){
-	var key = Object.keys(participants)
-	var res = 0
-	for(var i = 0,len = key.length;i < len;i++){
-		if(participants[key[i]].inputed == true) res++
-	}
-	
-	return res
-}
+const mapStateToProps = ({ participants ,inputs}) => ({ participants ,inputs})
 
-const mapStateToProps = ({ participants }) => ({ participants })
-
-const Users = ({ participants }) => (
+const Users = ({ participants ,inputs}) => (
   <div>
     <Card>
       <CardHeader
-        title={"Users (" + Object.keys(participants).length + "人) " + Inputed_Number({participants}) + "人投票済み"}
+        title={"Users (" + Object.keys(participants).length + "人) " + inputs + "人投票済み"}
         actAsExpander={true}
         showExpandableButton={true}
       />

@@ -16,12 +16,42 @@ defmodule Beauty.Host do
       data
     end
   end
-  
-  def init_participant(data) do
+ 
+  def set_data(data) do
+    data = data |>Map.put(:participants,Enum.into(Enum.map(data.participants, fn { id, _} ->
+       {id,
+          %{
+	      number: 0,
+	      inputed: false,
+	  }
+       }
+    end), %{}))
+    
+    data = data 
+           |>put_in([:inputed],0)
     data
-    |> Actions.init_participant()
+    |> Actions.set_data()
   end
-  
+
+  def all_reset(data) do
+    data = data |>Map.put(:participants,Enum.into(Enum.map(data.participants, fn { id, _} ->
+       {id,
+          %{
+	      active: true,
+	      number: 0,
+	      inputed: false,
+	  }
+       }
+    end), %{}))
+    
+    data = data 
+           |>put_in([:inputed],0)
+	   |>put_in([:actives],data.participants.length)
+    data
+    |> Actions.all_reset()
+  end
+
+
 # Utilities
   def format_contents(data) do
     data

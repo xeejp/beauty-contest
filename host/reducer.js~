@@ -10,10 +10,21 @@ const reducer = concatenateReducers([
     'join': ({ participants }, { payload: { id, participant } }) => ({
       participants: Object.assign({}, participants, {[id]: participant})
     }),
-    'matched': (_, { payload: { participants, groups } }) => ({
-      participants, groups
+    'input': ({ participants } , { payload: { id, number, inputs} }) => {
+	const result = Object.assign({},participants)
+	result[id].inputed = true
+	result[id].number = number
+	const result_num = inputs 
+	return { participants: result ,inputs : result_num}
+    },
+    'set_data': ({ participants }, { payload : { participants_data ,inputs } }) => ({
+	participants: participants_data ,inputs: 0
+    }),
+    'all_reset': ({ participants }, { payload : { participants_data ,inputs ,actives_data} }) => ({
+	    participants: participants_data ,inputs: 0, actives: actives_data
     })
-  }),
+
+  },{}),
   handleAction('update contents', () => ({ loading: false }), { loading: true })
 ])
 
