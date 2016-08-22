@@ -10,8 +10,8 @@ import { getPage } from 'util/index'
 
 const pages = ["waiting", "description", "experiment", "result"]
 
-const mapStateToProps = ({ page }) => ({
-  page
+const mapStateToProps = ({ page, inputs , actives}) => ({
+ page, inputs , actives
 })
 
 class PageButtons extends Component {
@@ -26,8 +26,9 @@ class PageButtons extends Component {
   }
 
   render() {
-    const { page } = this.props
+    const { page, inputs , actives } = this.props
     const buttons = []
+   
     for (let i = 0; i < pages.length; i ++) {
       buttons[i] = (
         <Step key={i}>

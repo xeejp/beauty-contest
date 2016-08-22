@@ -11,18 +11,18 @@ const reducer = concatenateReducers([
       participants: Object.assign({}, participants, {[id]: participant}),
       actives: actives_data
     }),
-    'input': ({ participants } , { payload: { id, number, inputs} }) => {
+    'input': ({ participants } , { payload: { id, number, inputs, sum_data} }) => {
 	const result = Object.assign({},participants)
 	result[id].inputed = true
 	result[id].number = number
 	const result_num = inputs 
-	return { participants: result ,inputs : result_num}
+	return { participants: result ,inputs : result_num, sum : sum_data}
     },
-    'set_data': ({ participants }, { payload : { participants_data ,inputs } }) => ({
-	participants: participants_data ,inputs: 0
+    'set_data': ({ participants }, { payload : { participants_data ,inputs ,sum} }) => ({
+	    participants: participants_data ,inputs: 0 , sum: 0
     }),
-    'all_reset': ({ participants }, { payload : { participants_data ,inputs ,actives_data} }) => ({
-	    participants: participants_data ,inputs: 0, actives: actives_data
+    'all_reset': ({ participants }, { payload : { participants_data ,inputs ,actives_data,sum} }) => ({
+	    participants: participants_data ,inputs: 0, actives: actives_data, sum: 0
     })
 
   },{}),

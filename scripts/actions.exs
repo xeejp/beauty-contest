@@ -4,13 +4,17 @@ defmodule Beauty.Actions do
   alias Beauty.Main
 
   def change_page(data, page) do
+    host = get_action("update contents", Host.format_contents(data))
     action = get_action("change page", page)
-    format(data, nil, dispatch_to_all(data, action))
+    format(data, host, dispatch_to_all(data, action))
   end
 
   def join(data, id, participant) do
-    action = get_action("join", %{id: id, participant: participant,actives_data: data.actives})
-    format(data, action)
+    host = get_action("join", %{id: id, participant: participant,actives_data: data.actives})
+    action = get_action("join", %{
+	actives_data: data.actives
+    })
+    format(data, host,dispatch_to_all(data,action))
   end
 
   def update_host_contents(data) do
@@ -19,10 +23,6 @@ defmodule Beauty.Actions do
   end
 
   def update_participant_contents(data, id) do
-    if data.page == "wating" do
-       data = data
-               |>put_in([:participants, id ,:active], true)
-    end
     participant = dispatch_to(id, get_action("update contents", Participant.format_contents(data, id)))
     format(data, nil, participant)
   end
@@ -30,7 +30,7 @@ defmodule Beauty.Actions do
   def input(data, id) do
     number = get_in(data,[:participants, id, :number])
     inputs = get_in(data,[:inputs])
-    host = get_action("input", %{id: id, number: number, inputs: inputs})
+    host = get_action("input", %{id: id, number: number, inputs: inputs, sum_data: data.sum})
     participant = dispatch_to(id, get_action("input", number))
     format(data, host, participant)
   end 
@@ -39,10 +39,13 @@ defmodule Beauty.Actions do
     host = get_action("set_data", %{
     	participants_data: data.participants,
     	inputs: 0,
+	sum: 0,
     	})
     action = get_action("set_data", %{
     	number: 0,
 	inputed: false,
+	inputs: 0,
+	actives_data: data.actives
 	})
     format(data,host,dispatch_to_all(data,action))
     end
@@ -52,15 +55,25 @@ defmodule Beauty.Actions do
     	participants_data: data.participants,
     	inputs: 0,
 	actives_data: data.actives,
+	sum: 0,
     	})
     action = get_action("all_reset", %{
     	number: 0,
 	inputed: false,
 	active: true,
+	inputs: 0,
+	actives_data: data.actives
 	})
     format(data,host,dispatch_to_all(data,action))
     end
 
+   def updata_input(data,inputs,actives) do
+    action = get_action("updata input", %{
+    	inputs_data: inputs,
+	actives_data: actives,
+	})
+    format(data,nil,dispatch_to_all(data,action))
+    end
 
   # Utilities
 

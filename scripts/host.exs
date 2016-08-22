@@ -21,14 +21,18 @@ defmodule Beauty.Host do
     data = data |>Map.put(:participants,Enum.into(Enum.map(data.participants, fn { id, _} ->
        {id,
           %{
+	      active: data.participants[id].active,
 	      number: 0,
 	      inputed: false,
+	      inputs: 0,
+	      actives: data.actives,
 	  }
        }
     end), %{}))
     
     data = data 
-           |>put_in([:inputed],0)
+           |>put_in([:inputs],0)
+	   |>put_in([:sum],0)
     data
     |> Actions.set_data()
   end
@@ -40,6 +44,8 @@ defmodule Beauty.Host do
 	      active: true,
 	      number: 0,
 	      inputed: false,
+	      inputs: 0,
+	      actives: Map.size(data.participants),
 	  }
        }
     end), %{}))
@@ -47,6 +53,7 @@ defmodule Beauty.Host do
     data = data 
            |>put_in([:inputed],0)
 	   |>put_in([:actives],Map.size(data.participants))
+	   |>put_in([:sum],0)
     data
     |> Actions.all_reset()
   end

@@ -7,15 +7,16 @@ const reducer = concatenateReducers([
   handleActions({
     'update contents': (_, { payload }) => payload,
     [changePage]: (_, { payload }) => ({ page: payload }),
-    'join': ({ participants }, { payload: { id, participant } }) => ({
-      participants: Object.assign({}, participants, {[id]: participant})
+    'join': ({ participants }, { payload: { id, participant, actives_data} }) => ({
+      participants: Object.assign({}, participants, {[id]: participant}),
+      actives: actives_data
     }),
-    'input': ({ participants } , { payload: { id, number, inputs} }) => {
+    'input': ({ participants } , { payload: { id, number, inputs, sum_data} }) => {
 	const result = Object.assign({},participants)
 	result[id].inputed = true
 	result[id].number = number
 	const result_num = inputs 
-	return { participants: result ,inputs : result_num}
+	return { participants: result ,inputs : result_num, sum : sum_data}
     },
     'set_data': ({ participants }, { payload : { participants_data ,inputs } }) => ({
 	participants: participants_data ,inputs: 0

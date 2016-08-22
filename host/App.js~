@@ -5,7 +5,6 @@ import { fetchContents } from './actions'
 
 import PageButtons from './PageButtons'
 import Users from './Users'
-import Result from './Result'
 
 const mapStateToProps = ({ loading }) => ({
   loading
@@ -31,7 +30,6 @@ class App extends Component {
         <div>
           <PageButtons />
           <Users />
-	  <Result />
         </div>
       )
     }

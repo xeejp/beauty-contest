@@ -5,7 +5,7 @@ import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import SnackBar from 'material-ui/SnackBar'
 
-import { submitNumber } from './actions'
+import { submitNumber, update} from './actions'
 	       
 const mapStateToProps = ({ inputed }) => ({
 	inputed
@@ -46,11 +46,13 @@ class Input extends Component {
       			snack: true
 		})
 		dispatch(submitNumber(parseInt(value, 10)))
+		dispatch(update())
 	}
 
 	handleKeyDown(event) {
     		const { isValid } = this.state
-    		if (isValid && (event.key === "Enter" || event.keyCode === 13)) { // Enter
+		const { inputed } = this.props
+    		if (isValid && !inputed && (event.key === "Enter" || event.keyCode === 13)) { // Enter
       			this.handleClick()
    	 	}
   	}

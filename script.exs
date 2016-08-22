@@ -48,6 +48,8 @@ defmodule Beauty do
     result = case {action, params} do
       {"fetch contents", _} -> Participant.fetch_contents(data, id)
       {"input", number} -> Participant.input(data,id, number)
+      {"update input", _} -> Participant.update_input(data,id)
+      _ -> {:ok, %{"data" => data}}
     end
     wrap_result(result)
   end

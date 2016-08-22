@@ -11,6 +11,8 @@ defmodule Beauty.Main do
       inputs: 0,
       actives: 0,
       participants: %{},
+      average: 0,
+      sum: 0,
     }
   end
 
@@ -19,6 +21,9 @@ defmodule Beauty.Main do
     	number: 0,
 	active: false,
 	inputed: false,
+	inputs: 0,
+	actives: 0,
+	average: 0,
     }
   end
 
@@ -27,11 +32,17 @@ defmodule Beauty.Main do
       new = new_participant()
       actives = get_in(data, [:actives])
 
-      if data.page == "wating" do
+     if data.page == "waiting" do
          actives = actives + 1
          new = new
 	       |>put_in([:active], true)
-      end
+     else
+         new = new
+	       |>put_in([:active],false)
+     end
+
+     new = new
+           |>put_in([:actives],actives)
 
       put_in(data, [:participants, id], new)
       |>put_in([:actives], actives)

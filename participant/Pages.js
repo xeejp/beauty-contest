@@ -6,22 +6,26 @@ import Description from './Description'
 import Experiment from './Experiment'
 import Result from './Result'
 
-const mapStateToProps = ({ page }) => ({
-  page
+const mapStateToProps = ({ page , active}) => ({
+  page , active
 })
 
-const Pages = ({ page }) => (() => {
-  switch (page) {
-    case "waiting":
-      return <Waiting />
-    case "description":
-      return <Description />
-    case "experiment":
-      return <Experiment />
-    case "result":
-      return <Result />
-    default:
-      return <span></span>
+const Pages = ({ page ,active}) => (() => {
+  if(active){
+	  switch (page) {
+	    case "waiting":
+	      return <Waiting />
+	    case "description":
+	      return <Description />
+	    case "experiment":
+	      return <Experiment />
+	    case "result":
+	      return <Result />
+	    default:
+	      return <span></span>
+	  }
+  }else {
+	return <p>wait please</p>
   }
 })()
 

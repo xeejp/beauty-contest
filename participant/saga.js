@@ -1,6 +1,6 @@
 import { put, take, call, fork } from 'redux-saga/effects'
 
-import { fetchContents, submitNumber } from './actions'
+import { fetchContents, submitNumber, update} from './actions'
 
 function* fetchContentsSaga() {
   while (true) {
@@ -16,9 +16,17 @@ function* submitNumberSaga() {
   }
 }
 
+function* updateSaga() {
+  while(true) {
+	yield take(`${update}`)
+	yield call(sendData, 'update input')
+  }
+}
+
 function* saga() {
   yield fork(fetchContentsSaga)
   yield fork(submitNumberSaga)
+  yield fork(updateSaga)
 }
 
 export default saga

@@ -10,11 +10,17 @@ const reducer = concatenateReducers([
     'input': (_, { payload : number }) => {
 	return { number ,inputed: true}
     },
-    'set_data': (_, { payload : { number , inputed } } ) => ({
-	    number: 0,inputed: false
+    'set_data': (_, { payload : { number , inputed ,inputs,actives_data} } ) => ({
+	    number: 0,inputed: false, inputs: 0, actives: actives_data
     }),
-    'all_reset': (_, { payload : { number , inputed ,active} } ) => ({
-	    number: 0,inputed: false,active: true
+    'all_reset': (_, { payload : { number , inputed ,active ,noinput, actives_data} } ) => ({
+	    number: 0,inputed: false,active: true, noinput: 0, actives: actives_data
+    }),
+    'updata input': (_, { payload : { inputs_data, actives_data}} ) => ({
+	    inputs: inputs_data, actives: actives_data
+    }),
+    'join': (_, { payload : {actives_data} }) => ({
+	    actives: actives_data
     })
   },{}),
   handleAction('update contents', () => ({ loading: false }), { loading: true }),
