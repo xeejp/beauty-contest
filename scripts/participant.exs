@@ -38,11 +38,12 @@ defmodule Beauty.Participant do
 
   def format_participant(participant), do: participant
 
-  def format_data(data) do
+  def format_data(data,id) do
     %{
       page: data.page,
       inputs: data.inputs,
       actives: data.actives,
+      id: id,
       results: 
          if data.page == "result" do
 	    %{
@@ -65,6 +66,6 @@ defmodule Beauty.Participant do
     %{participants: participants} = data
     participant = Map.get(participants, id)
     format_participant(participant)
-    |> Map.merge(format_data(data))
+    |> Map.merge(format_data(data,id))
   end
 end

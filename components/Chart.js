@@ -17,6 +17,14 @@ const Chart = ({participants}) => {
           title: {
             text: null
           },
+	  plotOptions: {
+            series: {
+                pointPadding: 0,
+                groupPadding: 0,
+                borderWidth: 0,
+                shadow: false
+            }
+          },
           xAxis: {
             title: {
               text: 'Number'

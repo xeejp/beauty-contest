@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+import { Card, CardHeader, CardText } from 'material-ui/Card'
 import Chart from 'components/Chart'
 import Reward from './Reward'
 
@@ -19,9 +20,18 @@ const Result_info = ({results,number,inputed}) => (
 	     </span>)
 	  : <span></span>
      }
-    <Chart
-      participants = {results.participants}
-     />
+     <Card>
+      	<CardHeader
+	   title={"グラフ"}
+           actAsExpander={true}
+           showExpandableButton={true}
+      	/>
+      	<CardText expandable={true}>
+    	   <Chart
+     	      participants = {results.participants}
+     	   />
+	</CardText>
+    </Card>
   </div>
 )
 
