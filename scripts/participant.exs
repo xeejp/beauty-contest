@@ -26,19 +26,7 @@ defmodule Beauty.Participant do
           data = data
 	         |> put_in([:page],"result")
           Host.change_page(data,"result")
-	  else
-	  data = data |>Map.put(:participants,Enum.into(Enum.map(data.participants, fn { id, _} ->
-             {id,
-                 %{
-	            active: data.participants[id].active,
-	            number: data.participants[id].number,
-	            inputed: data.participants[id].inputed,
-	            inputs: inputs,
-		    actives: actives,
-	          }
-             }
-          end), %{}))
-
+       else
 	  data
 	  |> Actions.updata_input(inputs, actives)
        end
@@ -53,6 +41,23 @@ defmodule Beauty.Participant do
   def format_data(data) do
     %{
       page: data.page,
+      inputs: data.inputs,
+      actives: data.actives,
+      results: 
+         if data.page == "result" do
+	    %{
+	       participants: data.participants,
+	       sum: data.sum,
+	       inputs: data.inputs,
+	    }
+	 else
+	    %{
+	       participants: %{},
+	       sum: 0,
+	       inputs: 0,
+	     }
+	 end
+      
     }
   end
 

@@ -16,12 +16,9 @@ const Result = ({page,inputs}) => (
         showExpandableButton={true}
       />
       <CardText expandable={true}>
-        {(page == "result")?
-        ((inputs == 0)?
-	 <p>参　加　者　０　人</p>	
-	:<Result_info />
-	)
-	:<p>実験が終了していません</p>
+        {(inputs == 0)
+	? <p>投票者がいません</p>	
+	: <Result_info />
 	}
       </CardText>
     </Card>

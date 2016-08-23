@@ -1,16 +1,16 @@
-/*import React from 'react'
+import React from 'react'
 
-import { Card, CardHeader, CardText } from 'material-ui/Card'
 import Highcharts from 'react-highcharts'
 
-const Chart = ({participants,inputs}) => {
-  const Count = inputs
+const Chart = ({participants}) => {
   var data = new Array( 101 )
-  participants.forEach( function(participant,key,map){
-    if(participant.inputed) data[participant.number]++
-  })
-  return (
-    <Highcharts config={{
+  for(var i = 0;i < 101;i++) data[i] = 0
+  for (var key in participants){
+	  if(participants[key].inputed) data[participants[key].number]++
+  }
+  console.log(data)
+  return (<Highcharts 
+  config = {{
           chart: {
             type: 'column'
           },
@@ -28,13 +28,13 @@ const Chart = ({participants,inputs}) => {
               text: '人数'
             },
             min: 0,
+	    allowDecimals: false
           },
           series: [{
-            name: 'aaa',
+            name: '投票した人数',
             data: data
 	  }]
-        }} />
-  )
+        }} />)
 }
 
-export default Chart*/
+export default Chart

@@ -29,12 +29,12 @@ class Input extends Component {
 
 	handleChange(event) {
 		const value = event.target.value
-		const numValue = parseInt(value, 10)
-	    	const isValid = (0 <= numValue && numValue <= 100)
+		const numValue = parseInt(value,10)
+	    	const isValid = (!isNaN(value) && (value.indexOf('.') == -1) && 0 <= numValue && numValue <= 100)
 		this.setState({
 		      	value,
 		      	isValid
-	    	})
+		})
   	}
 	
 	handleClick() {
@@ -62,7 +62,7 @@ class Input extends Component {
 		const { inputed } = this.props
 		return(
 			<div> 
-			<p>数字を入力してください</p>
+			<p>投票する数字を入力してください</p>
 			<TextField
 	      		 hintText="0～100までの整数を入力してください"
 			 value = {value}

@@ -5,9 +5,10 @@ import { fetchContents } from './actions'
 
 import PageButtons from './PageButtons'
 import Users from './Users'
+import Result from './Result'
 
 const mapStateToProps = ({ loading }) => ({
-  loading
+  loading 
 })
 
 class App extends Component {
@@ -24,12 +25,13 @@ class App extends Component {
   render() {
       const { loading } = this.props
     if (loading) {
-      return <p>ロード中です。</p>
+      return <div><p>ロード中です。</p></div>
     } else {
       return (
         <div>
           <PageButtons />
           <Users />
+	  <Result />
         </div>
       )
     }

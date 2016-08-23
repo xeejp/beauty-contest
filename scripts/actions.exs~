@@ -4,8 +4,18 @@ defmodule Beauty.Actions do
   alias Beauty.Main
 
   def change_page(data, page) do
+    results = %{
+      participants: %{},
+      sum: 0,
+      inputs: 0,
+    }
+    if page == "result" do 
+       results = results |> put_in([:participants],data.participants)
+                         |> put_in([:sum],data.sum)
+			 |> put_in([:inputs],data.inputs)
+    end
     host = get_action("update contents", Host.format_contents(data))
-    action = get_action("change page", page)
+    action = get_action("change page", %{ page_data: page, results_data: results})
     format(data, host, dispatch_to_all(data, action))
   end
 
@@ -30,7 +40,7 @@ defmodule Beauty.Actions do
   def input(data, id) do
     number = get_in(data,[:participants, id, :number])
     inputs = get_in(data,[:inputs])
-    host = get_action("input", %{id: id, number: number, inputs: inputs, sum: data.sum})
+    host = get_action("input", %{id: id, number: number, inputs: inputs, sum_data: data.sum})
     participant = dispatch_to(id, get_action("input", number))
     format(data, host, participant)
   end 
@@ -39,6 +49,7 @@ defmodule Beauty.Actions do
     host = get_action("set_data", %{
     	participants_data: data.participants,
     	inputs: 0,
+	sum: 0,
     	})
     action = get_action("set_data", %{
     	number: 0,
@@ -48,12 +59,18 @@ defmodule Beauty.Actions do
 	})
     format(data,host,dispatch_to_all(data,action))
     end
+    
+    def send_result(data) do
+      action = get_action("result", %{participants_data: data.participants})
+      format(data,nil,dispatch_to_all(data,action))
+    end
 
     def all_reset(data) do
     host = get_action("all_reset", %{
     	participants_data: data.participants,
     	inputs: 0,
 	actives_data: data.actives,
+	sum: 0,
     	})
     action = get_action("all_reset", %{
     	number: 0,

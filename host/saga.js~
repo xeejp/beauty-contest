@@ -1,6 +1,6 @@
 import { put, take, call, select, fork } from 'redux-saga/effects'
 
-import { fetchContents, nextPage, submitPage, changePage, send_result} from './actions'
+import { fetchContents, nextPage, submitPage, changePage} from './actions'
 
 function* changePageSaga() {
   while (true) {
@@ -11,6 +11,9 @@ function* changePageSaga() {
     }
     if (payload == 'waiting'){
 	    yield call(sendData, 'all_reset')
+    }
+    if (payload == 'result'){
+	    yield call(sendData, 'send_result')
     }
     yield put(changePage(payload))
   }
@@ -36,13 +39,6 @@ function* fetchContentsSaga() {
   while (true) {
     yield take(`${fetchContents}`)
     yield call(sendData, 'fetch contents')
-  }
-}
-
-function* sendResultSaga() {
-  while(true) {
-    yield take(`${send_result}`)
-    yield call(sendData, 'send_result')
   }
 }
 

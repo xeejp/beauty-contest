@@ -12,6 +12,7 @@ defmodule Beauty.Main do
       actives: 0,
       participants: %{},
       average: 0,
+      sum: 0,
     }
   end
 

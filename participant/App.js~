@@ -3,12 +3,10 @@ import { connect } from 'react-redux'
 
 import { fetchContents } from './actions'
 
-import PageButtons from './PageButtons'
-import Users from './Users'
-import Result from './Result'
+import Pages from './Pages'
 
-const mapStateToProps = ({ loading }) => ({
-  loading 
+const mapStateToProps = ({loading}) => ({
+   loading
 })
 
 class App extends Component {
@@ -21,21 +19,18 @@ class App extends Component {
     const { dispatch } = this.props
     dispatch(fetchContents())
   }
-
   render() {
       const { loading } = this.props
-    if (loading) {
-      return <div><p>„É≠„Éº„Éâ‰∏≠„Åß„Åô„ÄÇ</p></div>
-    } else {
-      return (
-        <div>
-          <PageButtons />
-          <Users />
-	  <Result />
-        </div>
-      )
+      if(loading){
+	return <div><p>ÉçÅ[ÉhíÜÇ≈Ç∑ÅB</p></div>
+      }	else {      
+      	return (
+        	<div>
+          	<Pages />
+        	</div>
+      	)
+      }
     }
-  }
 }
 
 export default connect(mapStateToProps)(App)

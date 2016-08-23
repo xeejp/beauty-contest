@@ -22,7 +22,7 @@ class App extends Component {
   render() {
       const { loading } = this.props
       if(loading){
-	return <p>ƒ[ƒh’†‚Å‚·B</p>
+	return <div><p>ãƒ­ãƒ¼ãƒ‰ä¸­ã§ã™ã€‚</p></div>
       }	else {      
       	return (
         	<div>

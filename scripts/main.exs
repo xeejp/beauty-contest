@@ -21,9 +21,6 @@ defmodule Beauty.Main do
     	number: 0,
 	active: false,
 	inputed: false,
-	inputs: 0,
-	actives: 0,
-	average: 0,
     }
   end
 
@@ -40,9 +37,6 @@ defmodule Beauty.Main do
          new = new
 	       |>put_in([:active],false)
      end
-
-     new = new
-           |>put_in([:actives],actives)
 
       put_in(data, [:participants, id], new)
       |>put_in([:actives], actives)
