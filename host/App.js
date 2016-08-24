@@ -30,8 +30,8 @@ class App extends Component {
       return (
         <div>
           <PageButtons />
-          <Users />
 	  <Result />
+          <Users /> 
         </div>
       )
     }

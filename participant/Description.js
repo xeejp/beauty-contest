@@ -11,7 +11,7 @@ const Description = ({}) => (
 	<Card>
 		<CardTitle title="美人投票ゲーム" subtitle="ルールの説明" />
 		<CardText>
-			<p>説明を入力</p>
+			<p>0～100の整数を投票して、その平均値に3分の2を掛けた値に近い整数を投票してる人に報酬を与えます。</p>
 		</CardText>
 	</Card>
 )

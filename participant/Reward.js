@@ -2,34 +2,35 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { Card, CardHeader, CardText } from 'material-ui/Card'
+import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+
 
 const mapStateToProps = ({results,number,inputed,id}) => ({
 	results,number,inputed,id
 })
 
 const Print = ({print_data,color}) => (
-	<tr>
-	   <td><font color={color}>{print_data.rank}</font></td>
-	   <td><font color={color}>{print_data.id}</font></td>
-	   <td><font color={color}>{print_data.number}</font></td>
-	</tr>
+	<TableRow>
+	   <TableRowColumn><font color={color}>{print_data.rank}位</font></TableRowColumn>
+	   <TableRowColumn><font color={color}>{print_data.number}</font></TableRowColumn>
+	   <TableRowColumn><font color={color}>{print_data.dis}</font></TableRowColumn>
+	</TableRow>
 )
 
-const My_data = ({my_data}) => {
-	console.log(my_data)
-	if(my_data.rank <= 10) return (<tr><td></td></tr>)
-	else return(		   
-		<Print
-		     print_data = {my_data}
-		     color = {"#FF0000"}
-		/>
-		)
-}
-
 const Rank = ({data,id,my_data}) => (
-<table>
-    <thead><tr><th>rank</th><th>id</th><th>number</th></tr></thead>
-    <tbody>
+<Table>
+    <TableHeader
+      displaySelectAll = {false}
+    >
+       <TableRow>
+          <TableHeaderColumn>順位</TableHeaderColumn>
+	  <TableHeaderColumn>入力数字</TableHeaderColumn>
+	  <TableHeaderColumn>差分</TableHeaderColumn>
+       </TableRow>
+    </TableHeader>
+    <TableBody
+     displayRowCheckbox = {false}
+    >
       {
 	data.map( value => {
 		var color = "#000000"
@@ -37,6 +38,7 @@ const Rank = ({data,id,my_data}) => (
 		console.log(value)
 		return(		
 		<Print
+		  key={value.id}
 		  print_data = {value}
 		  color = {color}
 		/>
@@ -44,11 +46,19 @@ const Rank = ({data,id,my_data}) => (
 	
 	})
        }
-       <My_data
-         my_data = { my_data }
- 	/>
-    </tbody>
-  </table>
+       {(() => {
+		if(my_data.rank > 10){
+		   return (		   
+		      <Print
+		         print_data = {my_data}
+		         color = {"#FF0000"}
+		      />
+		    )
+		} else return null
+
+	})()}
+    </TableBody>
+  </Table>
 )
 
 const Reward = ({results,number,inputed,id}) => {
@@ -56,7 +66,7 @@ const Reward = ({results,number,inputed,id}) => {
 	var Re_number = Math.round(results.sum * 2 / results.inputs / 3 * 10) / 10
 	for(key in results.participants){
 		if(results.participants[key].inputed){
-			var dis = Math.abs(results.participants[key].number - Re_number)
+			var dis = Math.round(Math.abs(results.participants[key].number - Re_number)*10)/10
 			data.push({id: key, number: results.participants[key].number, dis: dis, rank: 1})
 		}
 	}
@@ -74,12 +84,11 @@ const Reward = ({results,number,inputed,id}) => {
 	)
 
 	console.log(data)
-	var plus = 0,my_data = {rank:0}
+	var my_data = {rank:0}
 	for(let i = 1 ,len = data.length; i < len;i++){
-		if(data[i-1].dis != data[i].dis) plus++
-		data[i].rank += plus
+		if(data[i-1].dis == data[i].dis) data[i].rank = data[i-1].rank
+		else data[i].rank = i+1 
 		if(data[i].id == id) my_data = data[i]
-		console.log(plus)
 	}
 	var rank_data = data.filter(function(value){
 		return value.rank <= 10	

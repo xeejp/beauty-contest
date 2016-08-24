@@ -16,8 +16,8 @@ const UsersList = ({participants}) => (
           <User
             key={id}
             id={id}
-            number ={participants[id].active ?  participants[id].number : ""}
-            inputed={participants[id].active ? (participants[id].inputed ? "投票済" : "未投票") : ""}
+            number ={participants[id].active && participants[id].inputed ? participants[id].number:" - "}
+            inputed={participants[id].active ? (participants[id].inputed ? "投票済" : "未投票") : " - "}
 	    state = {participants[id].active ? "参加中" : "待機中"}
           />
         ))
@@ -32,7 +32,7 @@ const Users = ({ participants ,inputs, actives}) => (
   <div>
     <Card>
       <CardHeader
-        title={"参加人数 " + actives + "人 " + inputs + "人投票済み"}
+        title={"ユーザ数 " + Object.keys(participants).length + "人 ,参加人数 " +  actives + "人," + inputs + "人投票済み"}
         actAsExpander={true}
         showExpandableButton={true}
       />

@@ -14,10 +14,7 @@ const Result_info = ({results,number,inputed}) => (
      <p>平均値: {Math.round(results.sum/results.inputs*10)/10} 報酬基準値: {Math.round(results.sum*2/results.inputs/3*10)/10} </p>
      {
       inputed
-	  ? (<span>
-	     <p>あなたが入力した値: {number}</p>
-	     <Reward/>
-	     </span>)
+	  ? <span><p>あなたが入力した値: {number}</p></span>
 	  : <span></span>
      }
      <Card>
@@ -32,6 +29,7 @@ const Result_info = ({results,number,inputed}) => (
      	   />
 	</CardText>
     </Card>
+    <Reward />
   </div>
 )
 
