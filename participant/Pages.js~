@@ -26,7 +26,7 @@ const Pages = ({ page ,active}) => (() => {
 	      return <span></span>
 	  }
   }else {
-	return <WaitPage />
+	return <p>WaitPage</p>
   }
 })()
 
