@@ -36,7 +36,7 @@ defmodule Beauty do
       {"fetch contents", _} -> Host.fetch_contents(data)
       {"change page", page} -> Host.change_page(data, page)
       {"set_data", _} -> Host.set_data(data)
-      {"all_reset", _} -> Host.all_reset(data)
+      {"change result page", page} -> Host.change_result_page(data, page)
       _ -> {:ok, %{"data" => data}}
     end
     wrap_result(result)

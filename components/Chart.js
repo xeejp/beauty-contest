@@ -16,7 +16,6 @@ const Chart = ({participants}) => {
 
   sum = sum / inputs * 2 / 3
 
-  console.log(data)
   return (inputs < 100 
 	   ? <Chart1
 	       data={data}

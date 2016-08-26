@@ -3,12 +3,14 @@ import React from 'react'
 import Highcharts from 'react-highcharts'
 
 const Chart2 = ({data,re}) => {
-   console.log(data)
   return (<Highcharts 
   config = {{
           chart: {
             type: 'column'
-          },
+          }, 
+credits: {
+            enabled: false
+        },
           title: {
             text: null
           },
@@ -17,7 +19,8 @@ const Chart2 = ({data,re}) => {
                 pointPadding: 0,
                 groupPadding: 0,
                 borderWidth: 0,
-                shadow: false
+                shadow: false,
+                pointPlacement: "between"
             }
           },
           xAxis: {
@@ -31,10 +34,11 @@ const Chart2 = ({data,re}) => {
                 value: re,
                 zIndex: 5,
                 label: {
-                   text:"報酬基準値",
-               	   verticalAlign: 'bottom',
+                   useHTML:true,
+                   text: "報酬基準値<br>"+Math.round(re*10)/10,
+               	   verticalAlign: 'top',
                    rotation: 0,
-                   y:-8
+                   y:13
                 }
             }]
           },

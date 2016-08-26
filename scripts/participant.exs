@@ -9,30 +9,48 @@ defmodule Beauty.Participant do
   end
 
   def input(data, id, number)do
-	inputs = get_in(data, [:inputs])
-	inputs = inputs + 1
-  	data = data
-		|> put_in([:participants, id ,:inputed], true)
-		|> put_in([:participants, id ,:number], number)
-		|> put_in([:inputs], inputs)
-		|> put_in([:sum], data.sum+number)
-	Actions.input(data, id)
+    if data.page == "experiment" && is_number(number) && number >= 0 && number <= 100 do
+	    inputs = get_in(data, [:inputs])+1
+      sum = get_in(data, [:sum])+number
+      participant = get_in(data,[:participants, id])
+      participant = participant
+                    |> put_in([:inputed],true)
+                    |> put_in([:number], number)
+     
+  	  data = data
+	         |> put_in([:participants, id], participant)
+    
+      result = %{
+          participants: data.participants,
+          sum: sum,
+          inputs: inputs,
+          round: data.round
+     } 
+
+        data = data
+		           |> put_in([:inputs], inputs)
+		           |> put_in([:sum], sum)
+               |> put_in([:results], List.replace_at(data.results, 0, result))
+	    Actions.input(data, id)
+    else
+      data
+    end
   end
 
   def update_input(data,id) do
+    if data.page == "experiment" do
        inputs =  get_in(data, [:inputs])
-       actives = get_in(data, [:actives])
-       if(inputs == actives) do
-          data = data
-	         |> put_in([:page],"result")
-          Host.change_page(data,"result")
-       else
-	  data
-	  |> Actions.updata_input(inputs, actives)
-       end
-   end
+       actives = Map.size(data.participants)
+	     data
+	     |> Actions.updata_input(inputs, actives)
+    else 
+      data
+    end
+  end
 
           
+          
+
 
   # Utilities
 
@@ -42,23 +60,10 @@ defmodule Beauty.Participant do
     %{
       page: data.page,
       inputs: data.inputs,
-      actives: data.actives,
+      actives: Map.size(data.participants),
       id: id,
-      results: 
-         if data.page == "result" do
-	    %{
-	       participants: data.participants,
-	       sum: data.sum,
-	       inputs: data.inputs,
-	    }
-	 else
-	    %{
-	       participants: %{},
-	       sum: 0,
-	       inputs: 0,
-	     }
-	 end
-      
+      results: data.results,
+      round: data.round,
     }
   end
 

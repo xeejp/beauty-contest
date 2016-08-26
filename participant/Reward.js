@@ -4,11 +4,6 @@ import { connect } from 'react-redux'
 import { Card, CardHeader, CardText } from 'material-ui/Card'
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 
-
-const mapStateToProps = ({results,number,inputed,id}) => ({
-	results,number,inputed,id
-})
-
 const Print = ({print_data,color}) => (
 	<TableRow>
 	   <TableRowColumn><font color={color}>{print_data.rank}位</font></TableRowColumn>
@@ -71,8 +66,6 @@ const Reward = ({results,number,inputed,id}) => {
 		}
 	}
 
-	console.log(data)
-
 	data.sort(
 		function(a,b){
 			if(a.dis < b.dis) return -1
@@ -115,4 +108,4 @@ const Reward = ({results,number,inputed,id}) => {
 	
 }
 
-export default connect(mapStateToProps)(Reward)
+export default Reward

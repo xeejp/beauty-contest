@@ -4,11 +4,12 @@ import { connect } from 'react-redux'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import SnackBar from 'material-ui/SnackBar'
+import Chip from 'material-ui/Chip'
 
 import { submitNumber, update} from './actions'
 	       
-const mapStateToProps = ({ inputed }) => ({
-	inputed
+const mapStateToProps = ({ inputed ,round}) => ({
+	inputed,round
 })
 
 class Input extends Component {
@@ -30,7 +31,7 @@ class Input extends Component {
 	handleChange(event) {
 		const value = event.target.value
 		const numValue = parseInt(value,10)
-	    	const isValid = (!isNaN(value) && (value.indexOf('.') == -1) && 0 <= numValue && numValue <= 100)
+	    const isValid = (!isNaN(value) && (value.indexOf('.') == -1) && 0 <= numValue && numValue <= 100)
 		this.setState({
 		      	value,
 		      	isValid
@@ -43,28 +44,35 @@ class Input extends Component {
 		this.setState({
 			value: '',
 			isValid: false,
-      			snack: true
+      		snack: true
 		})
 		dispatch(submitNumber(parseInt(value, 10)))
 		dispatch(update())
 	}
 
 	handleKeyDown(event) {
-    		const { isValid } = this.state
-		const { inputed } = this.props
-    		if (isValid && !inputed && (event.key === "Enter" || event.keyCode === 13)) { // Enter
-      			this.handleClick()
+    	const { isValid } = this.state
+		const { inputed ,round} = this.props
+    	if (isValid && !inputed && (event.key === "Enter" || event.keyCode === 13)) { // Enter
+      		this.handleClick()
    	 	}
   	}
 
 	render() {
 		const { value, snack, isValid } = this.state
-		const { inputed } = this.props
+		const { inputed ,round} = this.props
 		return(
-			<div> 
+			<div>
+			<Chip
+        		style = {{
+             		float:"right"
+           		}}
+      		>
+       			 {round + "ラウンド"}
+      		</Chip>
 			<p>投票する数字を入力してください</p>
 			<TextField
-	      		 hintText="0～100までの整数を入力してください"
+	      	 hintText="0～100までの整数を入力してください"
 			 value = {value}
 			 onChange={this.handleChange.bind(this)}
 			 onKeyDown={this.handleKeyDown.bind(this)}

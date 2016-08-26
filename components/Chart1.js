@@ -9,12 +9,14 @@ const Chart1 = ({data,re}) => {
 	min_data[Math.floor(i/10)] += data[i]
   }
   min_data[9] += data[100]
-  console.log(min_data)
   return (<Highcharts 
   config = {{
           chart: {
             type: 'column'
-          },
+          }, 
+credits: {
+            enabled: false
+        },
           title: {
             text: null
           },
@@ -38,10 +40,11 @@ const Chart1 = ({data,re}) => {
                 value: re/10-0.5,
                 zIndex: 5,
                 label: {
-                   text:"報酬基準値",
-               	   verticalAlign: 'bottom',
+                   useHTML:true,
+                   text: "報酬基準値<br>"+Math.round(re*10)/10,
+               	   verticalAlign: 'top',
                    rotation: 0,
-                   y:-8
+                   y:13
                 }
             }]
           },

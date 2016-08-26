@@ -9,17 +9,17 @@ defmodule Beauty.Main do
     %{
       page: "waiting",
       inputs: 0,
-      actives: 0,
       participants: %{},
-      average: 0,
+      results: [],
       sum: 0,
+      round: 0,
+      result_page: 0
     }
   end
 
   def new_participant do
     %{
     	number: 0,
-	active: false,
 	inputed: false,
     }
   end
@@ -27,19 +27,8 @@ defmodule Beauty.Main do
   def join(data, id) do
     unless Map.has_key?(data.participants, id) do
       new = new_participant()
-      actives = get_in(data, [:actives])
-
-     if data.page == "waiting" do
-         actives = actives + 1
-         new = new
-	       |>put_in([:active], true)
-     else
-         new = new
-	       |>put_in([:active],false)
-     end
 
       put_in(data, [:participants, id], new)
-      |>put_in([:actives], actives)
       |> Actions.join(id, new)
     else
       data

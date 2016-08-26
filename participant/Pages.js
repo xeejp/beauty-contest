@@ -12,7 +12,6 @@ const mapStateToProps = ({ page , active}) => ({
 })
 
 const Pages = ({ page ,active}) => (() => {
-  if(active){
 	  switch (page) {
 	    case "waiting":
 	      return <Waiting />
@@ -25,9 +24,6 @@ const Pages = ({ page ,active}) => (() => {
 	    default:
 	      return <span></span>
 	  }
-  }else {
-	return <WaitPage />
-  }
 })()
 
 export default connect(mapStateToProps)(Pages)

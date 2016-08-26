@@ -3,12 +3,13 @@ import { connect } from 'react-redux'
 
 import { fetchContents } from './actions'
 
+import Chip from 'material-ui/Chip'
 import PageButtons from './PageButtons'
 import Users from './Users'
 import Result from './Result'
 
-const mapStateToProps = ({ loading }) => ({
-  loading 
+const mapStateToProps = ({ loading ,round}) => ({
+  loading ,round
 })
 
 class App extends Component {
@@ -23,14 +24,21 @@ class App extends Component {
   }
 
   render() {
-      const { loading } = this.props
+      const { loading ,round} = this.props
     if (loading) {
       return <div><p>ロード中です。</p></div>
     } else {
       return (
         <div>
+          <Chip
+        		style = {{
+             		float:"right"
+           		}}
+      		>
+       			 {((round>0)?round:"-") + "ラウンド"}
+      		</Chip>
           <PageButtons />
-	  <Result />
+	        <Result />
           <Users /> 
         </div>
       )

@@ -4,25 +4,30 @@ defmodule Beauty.Actions do
   alias Beauty.Main
 
   def change_page(data, page) do
-    results = %{
-      participants: %{},
-      sum: 0,
-      inputs: 0,
-    }
-    if page == "result" do 
-       results = results |> put_in([:participants],data.participants)
-                         |> put_in([:sum],data.sum)
-			 |> put_in([:inputs],data.inputs)
+    if page == "experiment" do
+       results = %{
+          participants: %{},
+          sum: 0,
+          inputs: 0,
+          round: data.round+1
+       }
+       data = data
+              |> put_in([:results],[results] ++ data.results)
     end
     host = get_action("update contents", Host.format_contents(data))
-    action = get_action("change page", %{ page_data: page, results_data: results})
+    action = get_action("change page", %{ page_data: page, results_data: data.results})
     format(data, host, dispatch_to_all(data, action))
   end
 
+  def set_result_page(data,page)do
+    host = get_action("update contents", Host.format_contents(data))
+    format(data, host)
+  end 
+
   def join(data, id, participant) do
-    host = get_action("join", %{id: id, participant: participant,actives_data: data.actives})
+    host = get_action("join", %{id: id, participant: participant})
     action = get_action("join", %{
-	actives_data: data.actives
+	     actives_data: Map.size(data.participants)
     })
     format(data, host,dispatch_to_all(data,action))
   end
@@ -40,36 +45,24 @@ defmodule Beauty.Actions do
   def input(data, id) do
     number = get_in(data,[:participants, id, :number])
     inputs = get_in(data,[:inputs])
-    host = get_action("input", %{id: id, number: number, inputs: inputs, sum_data: data.sum})
+    host = get_action("input", %{id: id, number: number, inputs: inputs, sum_data: data.sum,results_data: data.results})
     participant = dispatch_to(id, get_action("input", number))
     format(data, host, participant)
   end 
 
   def set_data(data) do
-    host = get_action("set_data", %{
-    	participants_data: data.participants,
-    	inputs: 0,
-	sum: 0,
-    	})
-    action = get_action("set_data", data.actives)
-    format(data,host,dispatch_to_all(data,action))
-    end
-    
-    def all_reset(data) do
-    host = get_action("all_reset", %{
-    	participants_data: data.participants,
-    	inputs: 0,
-	actives_data: data.actives,
-	sum: 0,
-    	})
-    action = get_action("all_reset",data.actives)
+    host = get_action("set_data", Host.format_contents(data))
+    action = get_action("set_data", %{
+      actives_data: Map.size(data.participants),
+      round_data: data.round
+    })
     format(data,host,dispatch_to_all(data,action))
     end
 
    def updata_input(data,inputs,actives) do
     action = get_action("updata input", %{
     	inputs_data: inputs,
-	actives_data: actives,
+	    actives_data: actives,
 	})
     format(data,nil,dispatch_to_all(data,action))
     end
