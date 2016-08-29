@@ -7,9 +7,11 @@ import Chip from 'material-ui/Chip'
 import PageButtons from './PageButtons'
 import Users from './Users'
 import Result from './Result'
+import Option from './Option'
 
-const mapStateToProps = ({ loading ,round}) => ({
-  loading ,round
+
+const mapStateToProps = ({ loading ,round ,maxround}) => ({
+  loading ,round ,maxround
 })
 
 class App extends Component {
@@ -24,7 +26,7 @@ class App extends Component {
   }
 
   render() {
-      const { loading ,round} = this.props
+      const { loading ,round ,maxround} = this.props
     if (loading) {
       return <div><p>ロード中です。</p></div>
     } else {
@@ -35,11 +37,12 @@ class App extends Component {
              		float:"right"
            		}}
       		>
-       			 {((round>0)?round:"-") + "ラウンド"}
+       			 {((round>0)?round:"-") + "/" +  maxround + "ラウンド"}
       		</Chip>
           <PageButtons />
 	        <Result />
-          <Users /> 
+          <Users />
+          <Option />
         </div>
       )
     }

@@ -1,6 +1,7 @@
 defmodule Beauty.Host do
   alias Beauty.Main
   alias Beauty.Actions
+  require Logger
 
   # Actions
   def fetch_contents(data) do
@@ -24,6 +25,14 @@ defmodule Beauty.Host do
     |> Actions.set_result_page(page) 
   end
  
+  def change_round(data,round)do
+    Logger.debug("[Beauty] round: #{round}")
+    data = data
+           |>put_in([:maxround],round)
+    data
+    |> Actions.change_round(round)
+  end
+
   def set_data(data) do
     data = data |>Map.put(:participants,Enum.into(Enum.map(data.participants, fn { id, _} ->
        {id,

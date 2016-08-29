@@ -13,6 +13,7 @@ defmodule Beauty.Main do
       results: [],
       sum: 0,
       round: 0,
+      maxround: 10,
       result_page: 0
     }
   end

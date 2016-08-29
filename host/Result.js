@@ -18,8 +18,8 @@ class Result extends Component {
 
   handleClickPrev(){
     const { dispatch } = this.props
-    const { result_page ,round} = this.props
-    if(result_page < round-1) dispatch(changeResultPage(result_page+1))
+    const { result_page ,round,results} = this.props
+    if(result_page < results.length-1) dispatch(changeResultPage(result_page+1))
   }
   
 	handleClickNext(){
@@ -31,7 +31,8 @@ class Result extends Component {
   render(){
     const { inputs,round,results,result_page} = this.props
     const page = result_page
-		console.log(page < round-1)
+		console.log(page < results.length-1)
+    console.log(page > 0)
     return (
       <div>
         <Card>
@@ -45,7 +46,7 @@ class Result extends Component {
             (<span>
             <IconButton 
               tooltip="Prev Result" 
-              disabled = {!(page < round-1)}
+              disabled = {!(page < results.length-1)}
 							onClick = {this.handleClickPrev.bind(this)}    
             >
               <KeyboardArrowLeft />

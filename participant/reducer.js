@@ -21,6 +21,9 @@ const reducer = concatenateReducers([
     }),
     'join': (_, { payload : {actives_data} }) => ({
 	    actives: actives_data
+    }),
+    'change round': (_, payload) => ({
+      maxround: payload
     })
   },{}),
   handleAction('update contents', () => ({ loading: false }), { loading: true }),

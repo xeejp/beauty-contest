@@ -14,8 +14,18 @@ defmodule Beauty.Actions do
        data = data
               |> put_in([:results],[results] ++ data.results)
     end
+    if page == "waiting" do
+      data = data
+             |> put_in([:round],0)
+    end
     host = get_action("update contents", Host.format_contents(data))
     action = get_action("change page", %{ page_data: page, results_data: data.results})
+    format(data, host, dispatch_to_all(data, action))
+  end
+
+  def change_round(data,round) do
+    host = get_action("update contents", Host.format_contents(data))
+    action = get_action("change round", round)
     format(data, host, dispatch_to_all(data, action))
   end
 

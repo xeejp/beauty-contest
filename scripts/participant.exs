@@ -64,6 +64,7 @@ defmodule Beauty.Participant do
       id: id,
       results: data.results,
       round: data.round,
+      maxround: data.maxround
     }
   end
 

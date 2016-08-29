@@ -8,8 +8,8 @@ import Chip from 'material-ui/Chip'
 
 import { submitNumber, update} from './actions'
 	       
-const mapStateToProps = ({ inputed ,round}) => ({
-	inputed,round
+const mapStateToProps = ({ inputed ,round, maxround}) => ({
+	inputed,round, maxround
 })
 
 class Input extends Component {
@@ -59,8 +59,8 @@ class Input extends Component {
   	}
 
 	render() {
-		const { value, snack, isValid } = this.state
-		const { inputed ,round} = this.props
+		const { value, snack, isValid} = this.state
+		const { inputed ,round, maxround} = this.props
 		return(
 			<div>
 			<Chip
@@ -68,7 +68,7 @@ class Input extends Component {
              		float:"right"
            		}}
       		>
-       			 {round + "ラウンド"}
+       			 {round + "/" +  +"ラウンド"}
       		</Chip>
 			<p>投票する数字を入力してください</p>
 			<TextField

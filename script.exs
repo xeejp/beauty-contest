@@ -37,6 +37,7 @@ defmodule Beauty do
       {"change page", page} -> Host.change_page(data, page)
       {"set_data", _} -> Host.set_data(data)
       {"change result page", page} -> Host.change_result_page(data, page)
+      {"change round",round} -> Host.change_round(data,round)
       _ -> {:ok, %{"data" => data}}
     end
     wrap_result(result)
