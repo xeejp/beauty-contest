@@ -61,6 +61,7 @@ class Input extends Component {
 	render() {
 		const { value, snack, isValid} = this.state
 		const { inputed ,round, maxround} = this.props
+		console.log(value)
 		return(
 			<div>
 			<Chip
@@ -68,7 +69,7 @@ class Input extends Component {
              		float:"right"
            		}}
       		>
-       			 {round + "/" +  +"ラウンド"}
+       			 {round + "/" + maxround +"ラウンド"}
       		</Chip>
 			<p>投票する数字を入力してください</p>
 			<TextField
