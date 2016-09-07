@@ -31,7 +31,7 @@ const Users = ({ participants ,inputs}) => (
   <div>
     <Card>
       <CardHeader
-        title={"ユーザ数 " + Object.keys(participants).length + "人," + inputs + "人投票済み"}
+        title={"登録者 " + Object.keys(participants).length + "人, " + inputs + "人投票済み"}
         actAsExpander={true}
         showExpandableButton={true}
       />

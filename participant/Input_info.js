@@ -1,8 +1,8 @@
 import React, { Component }  from 'react'
 import { connect } from 'react-redux'
 
-const mapStateToProps = ({ inputs , actives }) => ({
-	inputs,actives
+const mapStateToProps = ({ inputs , joined }) => ({
+	inputs,joined
 })
 
 class Input_info extends Component {
@@ -11,10 +11,10 @@ class Input_info extends Component {
 	}
 	
 	render() {
-		const { inputs,actives } = this.props
+		const { inputs,joined } = this.props
 		return(
 			<div>
-			<p>現在{actives}人中、{inputs}人が投票しています</p>
+			<p>{joined}人中、{inputs}人が投票しました。</p>
 			</div>
 		)
 	}

@@ -62,7 +62,7 @@ class Result extends Component {
             >
               <KeyboardArrowRight />
             </IconButton>
-            <p>ラウンド:{results[page].round} </p>
+            <p>第{results[page].round}ラウンドの結果</p>
             {(results[page].inputs == 0)
 	            ? <p>投票者がいません</p>	
 	            : <Result_info 

@@ -28,10 +28,11 @@ class Result_info extends Component {
   const inputed = (id in participants)?participants[id].inputed:false
   return (
   <div>
-     <p>平均値: {Math.round(sum/inputs*10)/10} 報酬基準値: {Math.round(sum*2/inputs/3*10)/10} </p>
+     <p>全員の投票の平均値は{Math.round(sum/inputs*10)/10}でした。<br/>
+     報酬の基準値は{Math.round(sum*2/inputs/3)}({Math.round(sum*2/inputs/3*10)/10}を四捨五入)です。</p>
      {
       inputed
-	  ? <span><p>あなたが入力した値: {number}</p></span>
+	  ? <span><p>あなたが入力した値は{number}でした。</p></span>
 	  : <span></span>
      }
      <Card
@@ -49,6 +50,7 @@ class Result_info extends Component {
      	   />
 	</CardText>
     </Card>
+    <br/>
     <Reward 
       results = {results}
       number = {number}

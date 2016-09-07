@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { fetchContents } from './actions'
 
 import Chip from 'material-ui/Chip'
+import Divider from 'material-ui/Divider'
 import PageButtons from './PageButtons'
 import Users from './Users'
 import Result from './Result'
@@ -40,8 +41,16 @@ class App extends Component {
        			 {((round>0)?round:"-") + "/" +  maxround + "ラウンド"}
       		</Chip>
           <PageButtons />
-	        <Result />
-          <Users />
+              <Divider
+                style={{
+                  marginTop: "5%",
+		  marginBottom: "5%",
+                }}
+              />
+	        <Users />
+          <br />
+          <Result />
+          <br />
           <Option />
         </div>
       )

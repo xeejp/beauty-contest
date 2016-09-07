@@ -40,9 +40,9 @@ defmodule Beauty.Participant do
   def update_input(data,id) do
     if data.page == "experiment" do
        inputs =  get_in(data, [:inputs])
-       actives = Map.size(data.participants)
+       joined = Map.size(data.participants)
 	     data
-	     |> Actions.updata_input(inputs, actives)
+	     |> Actions.updata_input(inputs, joined)
     else 
       data
     end
@@ -60,7 +60,7 @@ defmodule Beauty.Participant do
     %{
       page: data.page,
       inputs: data.inputs,
-      actives: Map.size(data.participants),
+      joined: Map.size(data.participants),
       id: id,
       results: data.results,
       round: data.round,

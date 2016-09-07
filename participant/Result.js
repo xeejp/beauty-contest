@@ -49,7 +49,7 @@ class Result extends Component {
 		console.log(!(page > 0))
    return (
     <div>
-      <p>実験結果</p>
+      <h2>実験結果</h2>
       {(results.length > 0)
 				?
 				<span>
@@ -71,7 +71,7 @@ class Result extends Component {
         >
           <KeyboardArrowRight />
         </IconButton>
-				<p>ラウンド:{results[page].round} </p>
+				<p>第{results[page].round}ラウンドの結果</p>
 				{(results[page].inputs == 0)
           ? (<p>一人も投票していないので、結果を表示することができません</p>)
     			: <Result_info 

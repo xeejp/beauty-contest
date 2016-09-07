@@ -88,12 +88,12 @@ class Input extends Component {
 			  disabled={inputed || !isValid}
 			  onClick = {this.handleClick.bind(this)}
 			/>
-			<SnackBar
+			{/*<SnackBar
           		   open={snack}
           		   message={"送信しました。"}
           		   autoHideDuration={3000}
           	 	   onRequestClose={this.closeSnack.bind(this)}
-        		/>
+        		/>*/}
 			</div>
 		)
 	}

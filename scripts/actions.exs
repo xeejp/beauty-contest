@@ -5,22 +5,31 @@ defmodule Beauty.Actions do
 
   def change_page(data, page) do
     if page == "experiment" do
-       results = %{
+      if data.round < data.maxround do
+        results = %{
           participants: %{},
           sum: 0,
           inputs: 0,
           round: data.round+1
-       }
-       data = data
-              |> put_in([:results],[results] ++ data.results)
+        }
+        data = data
+               |> put_in([:results],[results] ++ data.results)
+        host = get_action("update contents", Host.format_contents(data))
+        action = get_action("change page", %{ page_data: page, results_data: data.results})
+        format(data, host, dispatch_to_all(data, action))
+      else
+        action = get_action("change page", %{ page_data: page, results_data: data.results})
+        format(data, nil, dispatch_to_all(data, action))
+      end
+    else
+      if page == "waiting" do
+        data = data
+               |> put_in([:round],0)
+      end
+      host = get_action("update contents", Host.format_contents(data))
+      action = get_action("change page", %{ page_data: page, results_data: data.results})
+      format(data, host, dispatch_to_all(data, action))
     end
-    if page == "waiting" do
-      data = data
-             |> put_in([:round],0)
-    end
-    host = get_action("update contents", Host.format_contents(data))
-    action = get_action("change page", %{ page_data: page, results_data: data.results})
-    format(data, host, dispatch_to_all(data, action))
   end
 
   def change_round(data,round) do
@@ -37,7 +46,7 @@ defmodule Beauty.Actions do
   def join(data, id, participant) do
     host = get_action("join", %{id: id, participant: participant})
     action = get_action("join", %{
-	     actives_data: Map.size(data.participants)
+	     joined_data: Map.size(data.participants)
     })
     format(data, host,dispatch_to_all(data,action))
   end
@@ -63,16 +72,16 @@ defmodule Beauty.Actions do
   def set_data(data) do
     host = get_action("set_data", Host.format_contents(data))
     action = get_action("set_data", %{
-      actives_data: Map.size(data.participants),
+      joined_data: Map.size(data.participants),
       round_data: data.round
     })
     format(data,host,dispatch_to_all(data,action))
     end
 
-   def updata_input(data,inputs,actives) do
+   def updata_input(data,inputs,joined) do
     action = get_action("updata input", %{
     	inputs_data: inputs,
-	    actives_data: actives,
+	    joined_data: joined,
 	})
     format(data,nil,dispatch_to_all(data,action))
     end

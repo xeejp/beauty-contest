@@ -5,7 +5,6 @@ import Waiting from './Waiting'
 import Description from './Description'
 import Experiment from './Experiment'
 import Result from './Result'
-import WaitPage from './WaitPage'
 
 const mapStateToProps = ({ page , active}) => ({
   page , active

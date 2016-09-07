@@ -13,16 +13,16 @@ const reducer = concatenateReducers([
     'input': (_, { payload : number }) => {
 	return { number ,inputed: true}
     },
-    'set_data': (_, { payload :{actives_data,round_data}} ) => ({
-	    number: 0,inputed: false, inputs: 0, actives: actives_data, round: round_data
+    'set_data': (_, { payload :{joined_data,round_data}} ) => ({
+	    number: 0,inputed: false, inputs: 0, joined: joined_data, round: round_data
     }),
-    'updata input': (_, { payload : { inputs_data, actives_data}} ) => ({
-	    inputs: inputs_data, actives: actives_data
+    'updata input': (_, { payload : { inputs_data, joined_data}} ) => ({
+	    inputs: inputs_data, joined: joined_data
     }),
-    'join': (_, { payload : {actives_data} }) => ({
-	    actives: actives_data
+    'join': (_, { payload : {joined_data} }) => ({
+	    joined: joined_data
     }),
-    'change round': (_, payload) => ({
+    'change round': (_, { payload }) => ({
       maxround: payload
     })
   },{}),

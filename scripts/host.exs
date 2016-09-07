@@ -34,22 +34,26 @@ defmodule Beauty.Host do
   end
 
   def set_data(data) do
-    data = data |>Map.put(:participants,Enum.into(Enum.map(data.participants, fn { id, _} ->
+    if data.round < data.maxround do
+      data = data |>Map.put(:participants,Enum.into(Enum.map(data.participants, fn { id, _} ->
        {id,
           %{
-	      number: 0,
-	      inputed: false,
-	  }
-       }
-    end), %{}))
+	          number: 0,
+	          inputed: false,
+	        }
+        }
+      end), %{}))
     
-    data = data 
-           |>put_in([:inputs],0)
-	         |>put_in([:sum],0)
-           |>put_in([:round],data.round+1)
-           |>put_in([:result_page],0)
-    data
-    |> Actions.set_data()
+      data = data 
+             |>put_in([:inputs],0)
+	           |>put_in([:sum],0)
+             |>put_in([:round],data.round+1)
+             |>put_in([:result_page],0)
+      data
+      |> Actions.set_data()
+    else
+      data
+    end
   end
 
   

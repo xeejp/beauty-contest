@@ -12,8 +12,8 @@ import { getPage } from 'util/index'
 
 const pages = ["waiting", "description", "experiment", "result"]
 
-const mapStateToProps = ({ page, inputs , actives , maxround , round}) => ({
- page, inputs , actives , round , maxround
+const mapStateToProps = ({ page, inputs  , maxround , round}) => ({
+ page, inputs  , round , maxround
 })
 
 class PageButtons extends Component {
@@ -67,7 +67,7 @@ class PageButtons extends Component {
 
 
   render() {
-    const { page, inputs , actives ,round , maxround} = this.props
+    const { page, inputs  ,round , maxround} = this.props
     const { open } = this.state
     const buttons = []
     
