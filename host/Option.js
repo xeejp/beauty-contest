@@ -2,7 +2,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import RaisedButton from 'material-ui/RaisedButton'
-import { Card, CardHeader, CardText } from 'material-ui/Card'
+import FloatingActionButton from 'material-ui/FloatingActionButton'
+import ActionSettings from 'material-ui/svg-icons/action/settings'
+import Dialog from 'material-ui/Dialog'
+import TextField from 'material-ui/TextField'
+
 import { changeRound } from './actions'
 
 const mapStateToProps = ({ maxround , page }) => ({
@@ -13,7 +17,18 @@ class Option extends Component {
 
   constructor(props) {
 		super(props)
+    this.state = {
+      open: false,
+    }
 	}
+
+  handleOpen() {
+    this.setState({ open: true })
+  }
+
+  handleClose() {
+    this.setState({ open: false })
+  }
 
   minusRound() {
     const { maxround } = this.props
@@ -29,25 +44,34 @@ class Option extends Component {
 
   render() {
     const { maxround , page} = this.props
-    return (<Card>
-          <CardHeader
-            title={"オプション"}
-            actAsExpander={true}
-            showExpandableButton={true}
-          />
-          <CardText expandable={true}>
+    const actions = [
+      <RaisedButton
+        label={"適用"}
+        primary={true}
+        onTouchTap={this.handleClose.bind(this)}
+      />
+    ]
+    return (
+      <span>
+        <FloatingActionButton
+          onClick={this.handleOpen.bind(this)}
+          disabled={page != "waiting"}
+        >
+          <ActionSettings />
+        </FloatingActionButton>
+        <Dialog
+          title={"オプション"}
+          actions={actions}
+          model={false}
+          open={this.state.open}
+          autoScrollBodyContent={true}
+        >
           <p> 現在の最大ラウンド数:{maxround} </p>
-          {
-          (page == "waiting")
-          ?(<span>
           <RaisedButton onClick={this.minusRound.bind(this)} style={{ marginLeft: '3%' }} disabled = {!(maxround > 1)}>-</RaisedButton>
           <RaisedButton onClick={this.plusRound.bind(this)} style={{ marginLeft: '3%' }} >+</RaisedButton>
-          </span>
-          )
-          :<span></span>
-          }
-          </CardText>
-    </Card>)
+        </Dialog>
+      </span>
+    )
   }
 }
 
