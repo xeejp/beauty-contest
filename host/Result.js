@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import throttle from 'react-throttle-render'
 
 import IconButton from 'material-ui/IconButton';
 import { Card, CardHeader, CardText } from 'material-ui/Card'
@@ -13,25 +14,25 @@ const mapStateToProps = ({inputs,round,results,result_page}) => ({inputs,round,r
 
 class Result extends Component { 
   constructor(props) {
-		super(props)
-	}
+    super(props)
+  }
 
   handleClickPrev(){
     const { dispatch } = this.props
     const { result_page ,round,results} = this.props
     if(result_page < results.length-1) dispatch(changeResultPage(result_page+1))
   }
-  
-	handleClickNext(){
+
+  handleClickNext(){
     const { dispatch } = this.props
     const { result_page } = this.props
-		if(result_page > 0) dispatch(changeResultPage(result_page-1))
+    if(result_page > 0) dispatch(changeResultPage(result_page-1))
   }
 
   render(){
     const { inputs,round,results,result_page} = this.props
     const page = result_page
-		console.log(page < results.length-1)
+    console.log(page < results.length-1)
     console.log(page > 0)
     return (
       <div>
@@ -42,41 +43,41 @@ class Result extends Component {
             showExpandableButton={true}
           />
           <CardText expandable={true}>
-          {(results.length > 0)?
-            (<span>
-            <IconButton 
-              tooltip="Prev Result" 
-              disabled = {!(page < results.length-1)}
-							onClick = {this.handleClickPrev.bind(this)}    
-            >
-              <KeyboardArrowLeft />
-            </IconButton>
+            {(results.length > 0)?
+              (<span>
+                <IconButton 
+                  tooltip="Prev Result" 
+                  disabled = {!(page < results.length-1)}
+                  onClick = {this.handleClickPrev.bind(this)}    
+                >
+                  <KeyboardArrowLeft />
+                </IconButton>
 
-            <IconButton 
-              tooltip="Next Result"
-              style = {{
-                float:"right"
-              }}
-              disabled = {!(page > 0)}
-							onClick = {this.handleClickNext.bind(this)}
-            >
-              <KeyboardArrowRight />
-            </IconButton>
-            <p>第{results[page].round}ラウンドの結果</p>
-            {(results[page].inputs == 0)
-	            ? <p>投票者がいません</p>	
-	            : <Result_info 
-                  results = {results[page]}
-                />
-						}
-            </span>)
-            : <p>一回も実験を実施していません</p>
-          }
-      </CardText>
-      
-        
-    </Card>
-   </div>
-  )}
+                <IconButton 
+                  tooltip="Next Result"
+                  style = {{
+                    float:"right"
+                  }}
+                  disabled = {!(page > 0)}
+                  onClick = {this.handleClickNext.bind(this)}
+                >
+                  <KeyboardArrowRight />
+                </IconButton>
+                <p>第{results[page].round}ラウンドの結果</p>
+                {(results[page].inputs == 0)
+                  ? <p>投票者がいません</p>	
+                  : <Result_info 
+                    results = {results[page]}
+                  />
+                }
+              </span>)
+              : <p>一回も実験を実施していません</p>
+            }
+          </CardText>
+
+
+        </Card>
+      </div>
+    )}
 }
-export default connect(mapStateToProps)(Result)
+export default connect(mapStateToProps)(throttle(Result, 200))
