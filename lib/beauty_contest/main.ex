@@ -1,5 +1,5 @@
-defmodule Beauty.Main do
-  alias Beauty.Actions
+defmodule BeautyContest.Main do
+  alias BeautyContest.Actions
 
   @pages ["waiting", "description", "experiment", "result"]
 

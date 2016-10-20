@@ -1,6 +1,6 @@
-defmodule BeautyTest do
+defmodule BeautyContestTest do
   use ExUnit.Case
-  doctest Beauty
+  doctest BeautyContest
 
   test "the truth" do
     assert 1 + 1 == 2

@@ -1,6 +1,6 @@
-defmodule Beauty.Participant do
-  alias Beauty.Actions
-  alias Beauty.Host
+defmodule BeautyContest.Participant do
+  alias BeautyContest.Actions
+  alias BeautyContest.Host
 
   # Actions
   def fetch_contents(data, id) do

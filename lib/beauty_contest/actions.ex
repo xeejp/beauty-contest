@@ -1,7 +1,7 @@
-defmodule Beauty.Actions do
-  alias Beauty.Participant
-  alias Beauty.Host
-  alias Beauty.Main
+defmodule BeautyContest.Actions do
+  alias BeautyContest.Participant
+  alias BeautyContest.Host
+  alias BeautyContest.Main
 
   def change_page(data, page) do
     if page == "experiment" do
