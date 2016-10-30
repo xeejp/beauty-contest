@@ -1,6 +1,6 @@
-defmodule Beauty.Host do
-  alias Beauty.Main
-  alias Beauty.Actions
+defmodule BeautyContest.Host do
+  alias BeautyContest.Main
+  alias BeautyContest.Actions
   require Logger
 
   # Actions
@@ -26,7 +26,7 @@ defmodule Beauty.Host do
   end
  
   def change_round(data,round)do
-    Logger.debug("[Beauty] round: #{round}")
+    Logger.debug("[BeautyContest] round: #{round}")
     data = data
            |>put_in([:maxround],round)
     data
