@@ -73,6 +73,7 @@ class Input extends Component {
       		</Chip>
 			<p>投票する数字を入力してください</p>
 			<TextField
+           autoFocus
 	      	 hintText="0～100までの整数を入力してください"
 			 value = {value}
 			 onChange={this.handleChange.bind(this)}
