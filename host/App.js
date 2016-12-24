@@ -12,6 +12,7 @@ import PageButtons from './PageButtons'
 import Users from './Users'
 import Result from './Result'
 import Option from './Option'
+import EditQuestion from './EditQuestion.js'
 import DownloadButton from './DownloadButton'
 
 
@@ -66,6 +67,10 @@ class App extends Component {
           <Result />
           <br />
           <Option />
+          <EditQuestion 
+            style={{marginLeft: "2%"}}
+            disabled = {page != "waiting"}
+          />
           <DownloadButton
             fileName={"beauty_contest.csv"}
             list={[
