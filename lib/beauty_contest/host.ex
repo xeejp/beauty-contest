@@ -9,6 +9,10 @@ defmodule BeautyContest.Host do
     |> Actions.update_host_contents()
   end
 
+  def visit(data) do
+    Actions.visit(%{data | is_first_visit: false})
+  end
+
   def change_page(data, page) do
     if page in Main.pages do
       %{data | page: page}
@@ -22,9 +26,9 @@ defmodule BeautyContest.Host do
     data = data
            |> put_in([:result_page],page)
     data
-    |> Actions.set_result_page(page) 
+    |> Actions.set_result_page(page)
   end
- 
+
   def change_round(data,round)do
     Logger.debug("[BeautyContest] round: #{round}")
     data = data
@@ -43,8 +47,8 @@ defmodule BeautyContest.Host do
 	        }
         }
       end), %{}))
-    
-      data = data 
+
+      data = data
              |>put_in([:inputs],0)
 	           |>put_in([:sum],0)
              |>put_in([:round],data.round+1)
@@ -56,7 +60,7 @@ defmodule BeautyContest.Host do
     end
   end
 
-  
+
 # Utilities
   def format_contents(data) do
     data

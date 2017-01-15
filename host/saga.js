@@ -1,13 +1,13 @@
 import { put, take, call, select, fork } from 'redux-saga/effects'
 
-import { fetchContents, nextPage, backPage, submitPage, changePage, changeResultPage, changeRound} from './actions'
+import { fetchContents, nextPage, backPage, submitPage, changePage, changeResultPage, changeRound, visit } from './actions'
 
 function* changePageSaga() {
   while (true) {
     const { payload } = yield take(`${submitPage}`)
     sendData('change page', payload)
     if (payload == 'experiment'){
-	    yield call(sendData, 'set_data')
+      yield call(sendData, 'set_data')
     }
     yield put(changePage(payload))
   }
@@ -48,7 +48,7 @@ function* backPageSaga() {
 function* changeResultPageSaga() {
   while(true){
     const { payload: {result_page} } = yield take(`${changeResultPage}`)
-    yield call(sendData, 'change result page',result_page)     
+    yield call(sendData, 'change result page',result_page)
   }
 }
 
@@ -56,7 +56,7 @@ function* changeRoundSaga() {
   while(true){
     const { payload: {round} } = yield take(`${changeRound}`)
     console.log(round)
-    yield call(sendData, 'change round' , round)     
+    yield call(sendData, 'change round' , round)
   }
 }
 
@@ -67,6 +67,13 @@ function* fetchContentsSaga() {
   }
 }
 
+function* visitSaga() {
+  while (true) {
+    yield take(`${visit}`)
+    yield call(sendData, 'visit')
+  }
+}
+
 function* saga() {
   yield fork(changePageSaga)
   yield fork(nextPageSaga)
@@ -74,6 +81,7 @@ function* saga() {
   yield fork(fetchContentsSaga)
   yield fork(changeResultPageSaga)
   yield fork(changeRoundSaga)
+  yield fork(visitSaga)
 }
 
 export default saga

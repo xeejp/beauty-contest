@@ -38,15 +38,23 @@ defmodule BeautyContest.Actions do
     format(data, host, dispatch_to_all(data, action))
   end
 
-  def set_result_page(data,page)do
+  def set_result_page(data,page) do
     host = get_action("update contents", Host.format_contents(data))
     format(data, host)
-  end 
+  end
+
+  def visit(data) do
+    host = get_action("visited", Host.format_contents(data))
+    action = get_action("visited", %{
+      is_first_visit: data.is_first_visit
+    })
+    format(data,host,dispatch_to_all(data,action))
+  end
 
   def join(data, id, participant) do
     host = get_action("join", %{id: id, participant: participant})
     action = get_action("join", %{
-	     joined_data: Map.size(data.participants)
+      joined_data: Map.size(data.participants)
     })
     format(data, host,dispatch_to_all(data,action))
   end
@@ -60,14 +68,14 @@ defmodule BeautyContest.Actions do
     participant = dispatch_to(id, get_action("update contents", Participant.format_contents(data, id)))
     format(data, nil, participant)
   end
-  
+
   def input(data, id) do
     number = get_in(data,[:participants, id, :number])
     inputs = get_in(data,[:inputs])
     host = get_action("input", %{id: id, number: number, inputs: inputs, sum_data: data.sum,results_data: data.results})
     participant = dispatch_to(id, get_action("input", number))
     format(data, host, participant)
-  end 
+  end
 
   def set_data(data) do
     host = get_action("set_data", Host.format_contents(data))

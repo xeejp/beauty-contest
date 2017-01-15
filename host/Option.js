@@ -7,20 +7,26 @@ import ActionSettings from 'material-ui/svg-icons/action/settings'
 import Dialog from 'material-ui/Dialog'
 import TextField from 'material-ui/TextField'
 
-import { changeRound } from './actions'
+import { changeRound, visit, fetchContents } from './actions'
 
-const mapStateToProps = ({ maxround , page }) => ({
-        maxround , page
+const mapStateToProps = ({ maxround , page, is_first_visit }) => ({
+        maxround , page, is_first_visit
 })
 
 class Option extends Component {
-
   constructor(props) {
-		super(props)
-    this.state = {
-      open: false,
+    super(props)
+
+    const { is_first_visit } = props
+    const isFirst = is_first_visit
+    if (is_first_visit) {
+      const { dispatch } = props
+      dispatch(visit())
     }
-	}
+    this.state = {
+      open: isFirst,
+    }
+  }
 
   handleOpen() {
     this.setState({ open: true })

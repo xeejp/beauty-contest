@@ -14,14 +14,15 @@ defmodule BeautyContest.Main do
       sum: 0,
       round: 0,
       maxround: 10,
-      result_page: 0
+      result_page: 0,
+      is_first_visit: true
     }
   end
 
   def new_participant do
     %{
-    	number: 0,
-	inputed: false,
+      number: 0,
+      inputed: false,
     }
   end
 

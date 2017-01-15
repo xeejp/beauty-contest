@@ -11,7 +11,6 @@ import Result from './Result'
 import Option from './Option'
 import DownloadButton from './DownloadButton'
 
-
 const mapStateToProps = ({ loading ,round ,maxround, results, participants, page}) => ({
   loading ,round ,maxround, results, participants, page
 })
@@ -35,20 +34,20 @@ class App extends Component {
       return (
         <div>
           <Chip
-        		style = {{
-             		float:"right"
-           		}}
-      		>
-       			 {((round>0)?round:"-") + "/" +  maxround + "ラウンド"}
-      		</Chip>
+            style = {{
+              float:"right"
+            }}
+          >
+            {((round>0)?round:"-") + "/" +  maxround + "ラウンド"}
+          </Chip>
           <PageButtons />
-              <Divider
-                style={{
-                  marginTop: "5%",
-		  marginBottom: "5%",
-                }}
-              />
-	        <Users />
+          <Divider
+            style={{
+              marginTop: "5%",
+              marginBottom: "5%",
+            }}
+          />
+          <Users />
           <br />
           <Result />
           <br />
