@@ -3,12 +3,16 @@ import { connect } from 'react-redux'
 
 import { fetchContents } from './actions'
 
+import {Card, CardText, CardTitle } from 'material-ui/Card'
+import CircularProgress from 'material-ui/CircularProgress'
+
 import Chip from 'material-ui/Chip'
 import Divider from 'material-ui/Divider'
 import PageButtons from './PageButtons'
 import Users from './Users'
 import Result from './Result'
 import Option from './Option'
+import EditQuestion from './EditQuestion.js'
 import DownloadButton from './DownloadButton'
 
 const mapStateToProps = ({ loading ,round ,maxround, results, participants, page}) => ({
@@ -29,7 +33,17 @@ class App extends Component {
   render() {
       const { loading ,round ,maxround, results, participants, page} = this.props
     if (loading) {
-      return <div><p>ロード中です。</p></div>
+      return (
+        <Card style={{padding: '20px'}}>
+          <CardTitle title="接続中" style={{padding: '0px', marginTop: '7px', marginBottom: '14px'}}/>
+          <CardText style={{padding: '0px', margin: '0px'}}>
+            <div style={{textAlign: 'center'}}>
+              <CircularProgress style={{margin: '0px', padding: '0px' }} />
+            </div>
+            <p style={{margin: '0px', padding: '0px'}}>サーバーに接続しています。<br/>このまましばらくお待ちください。</p>
+          </CardText>
+        </Card>
+      )
     } else {
       return (
         <div>
@@ -52,6 +66,10 @@ class App extends Component {
           <Result />
           <br />
           <Option />
+          <EditQuestion 
+            style={{marginLeft: "2%"}}
+            disabled = {page != "waiting"}
+          />
           <DownloadButton
             fileName={"beauty_contest.csv"}
             list={[
