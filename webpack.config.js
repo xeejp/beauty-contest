@@ -1,26 +1,29 @@
 module.exports = {
-  devtool: 'eval',
-  entry: {
-    host: ["babel-polyfill", "./host/index.js"],
-    participant: ["babel-polyfill", "./participant/index.js"],
-  },
-  output: {
-    path: "./",
-    filename: "[name].js"
-  },
-  module: {
-    loaders: [{
-      test: /\.jsx?$/,
-      exclude: /node_modules/,
-      loader: "babel"
-    }]
-  },
-  resolve: {
-    extensions: [
-      "", ".js"
-    ],
-    modulesDirectories: [
-      "node_modules", "./"
-    ]
-  }
-};
+    entry: "./sourses/hentai_images.js",
+    target: 'web',
+    output: {
+        path: __dirname + "/dist",
+        filename: "hentai.js"
+    },
+    resolve: {
+        extensions: [".webpack.js", ".web.js", ".js", ".json","*"],
+        modules: ["node_modules"]
+    },
+    module: {
+        loaders: [
+            { 
+                test: /\.html$/, 
+                loader: "html"
+            },
+            {
+                test: /.jsx?$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/
+            }
+        ]
+    },
+    node: {
+        fs: "empty",
+        child_process: "empty"
+    }
+}
