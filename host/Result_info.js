@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { Card, CardHeader, CardText } from 'material-ui/Card'
 
-import Chart from 'components/Chart'
+import Chart from '../components/Chart'
 
 const Result_info = ({ results }) => {
   const sum = results.sum

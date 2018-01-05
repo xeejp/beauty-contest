@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { Card, CardHeader, CardText } from 'material-ui/Card'
-import Chart from 'components/Chart'
+import Chart from '../components/Chart'
 import Reward from './Reward'
 
 class Result_info extends Component {
