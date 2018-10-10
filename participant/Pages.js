@@ -6,11 +6,11 @@ import Description from './Description'
 import Experiment from './Experiment'
 import Result from './Result'
 
-const mapStateToProps = ({ page , active}) => ({
-  page , active
+const mapStateToProps = ({ page }) => ({
+  page
 })
 
-const Pages = ({ page ,active}) => (() => {
+const Pages = ({ page }) => (() => {
 	  switch (page) {
 	    case "waiting":
 	      return <Waiting />

@@ -6,7 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import SnackBar from 'material-ui/SnackBar'
 import Chip from 'material-ui/Chip'
 
-import { submitNumber, update} from './actions'
+import { submitNumber } from './actions'
 	       
 const mapStateToProps = ({ inputed ,round, maxround}) => ({
 	inputed,round, maxround
@@ -47,7 +47,6 @@ class Input extends Component {
       		snack: true
 		})
 		dispatch(submitNumber(parseInt(value, 10)))
-		dispatch(update())
 	}
 
 	handleKeyDown(event) {

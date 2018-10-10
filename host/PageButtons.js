@@ -6,7 +6,7 @@ import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
 import { Step, Stepper, StepButton } from 'material-ui/Stepper'
 
-import { submitPage, nextPage , backPage} from './actions'
+import { changePage } from './actions'
 
 import { getPage } from '../util/index'
 
@@ -33,41 +33,57 @@ class PageButtons extends Component {
     this.setState({open: false});
   }
 
-  changePage(page) {
+  handleChangePage(page) {
     const { dispatch } = this.props
     this.setState({open: false});
-    dispatch(submitPage(page))
+    dispatch(changePage(page))
   }
 
   nextPage() {
-    const { dispatch } = this.props
     const { page, maxround , round} = this.props
-    let next = pages[0]
-    if(page != "experiment" && page != "result"){
-      for (let i = 0; i < pages.length; i ++) {
-        if (page == pages[i]) {
-          next = pages[(i + 1) % pages.length]
-          break
+    
+    switch (page) {
+      case "waiting":
+        this.handleChangePage("description")
+        break
+      case "description":
+        this.handleChangePage("experiment")
+        break
+      case "experiment":
+        this.handleChangePage("result")
+        break
+      case "result":
+        if (maxround > round) {
+          this.handleChangePage("experiment")
+        } else {
+          this.handleChangePage("waiting")
         }
-      }
-    }else if(maxround > round){
-        if(page == "experiment") next = "result"
-        else next = "experiment"
-    }else {
-      if(page == "experiment") next = "result"
-      else next = "waiting"
+        break
     }
-    dispatch(submitPage(next))
   }
 
-  backPage(page) {
-    const { dispatch } = this.props
-    dispatch(backPage())
+  backPage() {
+    const { page } = this.props
+    
+    switch (page) {
+      case "waiting":
+        this.handleChangePage("result")
+        break
+      case "description":
+        this.handleChangePage("waiting")
+        break
+      case "experiment":
+        this.handleChangePage("description")
+        break
+      case "result":
+        this.handleChangePage("experiment")
+        break
+    }
   }
 
 
   render() {
-    const { page, inputs  ,round , maxround} = this.props
+    const { page, round, maxround } = this.props
     const { open } = this.state
     const buttons = []
     
@@ -75,13 +91,13 @@ class PageButtons extends Component {
       <FlatButton
         label="いいえ"
         primary={true}
-        onTouchTap={this.handleClose.bind(this)}
+        onClick={this.handleClose.bind(this)}
       />,
       <FlatButton
         label="はい"
         primary={true}
         keyboardFocused={true}
-        onTouchTap={this.changePage.bind(this, "experiment")}
+        onClick={this.handleChangePage.bind(this, "experiment")}
       />
     ]
 
@@ -89,7 +105,7 @@ class PageButtons extends Component {
       buttons[i] = (
         <Step key={i}>
           <StepButton
-            onClick={(page == "experiment" && pages[i] == "experiment")? this.handleOpen.bind(this) : this.changePage.bind(this, pages[i])}
+            onClick={(page == "experiment" && pages[i] == "experiment")? this.handleOpen.bind(this) : this.handleChangePage.bind(this, pages[i])}
           >
             <Dialog
               title="新ラウンド確認"
@@ -110,9 +126,9 @@ class PageButtons extends Component {
         <Stepper activeStep={pages.indexOf(page)} linear={false}>
           {buttons}
         </Stepper>
-        <RaisedButton onClick={this.backPage.bind(this)} style={{ marginLeft: '3%' }}>戻る</RaisedButton>
+        <RaisedButton onClick={this.backPage.bind(this)} style={{ marginLeft: '3%' }} disabled={page == "waiting"}>戻る</RaisedButton>
         <RaisedButton onClick={this.nextPage.bind(this)} primary={true}>次へ</RaisedButton>
-        <RaisedButton onClick={this.changePage.bind(this,"experiment")} primary={true} style={{ marginLeft: '3%' }} disabled = {maxround <= round} >次のラウンドへ</RaisedButton>
+        <RaisedButton onClick={this.handleChangePage.bind(this,"experiment")} primary={true} style={{ marginLeft: '3%' }} disabled = {maxround <= round} >次のラウンドへ</RaisedButton>
       </span>
     )
   }

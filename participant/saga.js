@@ -1,32 +1,20 @@
-import { put, take, call, fork } from 'redux-saga/effects'
+import { fork, take, call, select, takeEvery } from 'redux-saga/effects'
 
-import { fetchContents, submitNumber, update} from './actions'
+import { fetchContents } from '../shared/actions'
+import { submitNumber } from './actions'
 
 function* fetchContentsSaga() {
-  while (true) {
-    yield take(`${fetchContents}`)
-    yield call(sendData, 'fetch contents')
-  }
+  yield call(sendData, 'fetch contents')
 }
 
-function* submitNumberSaga() {
-  while(true) {
-	const { payload: { number } } = yield take(`${submitNumber}`)
-	yield call(sendData, 'input', number)
-  }
-}
-
-function* updateSaga() {
-  while(true) {
-	yield take(`${update}`)
-	yield call(sendData, 'update input')
-  }
+function* submitNumberSaga(action) {
+  const { payload } = action
+  yield call(sendData, 'input', payload)
 }
 
 function* saga() {
-  yield fork(fetchContentsSaga)
-  yield fork(submitNumberSaga)
-  yield fork(updateSaga)
+  yield fork(takeEvery, fetchContents.getType(), fetchContentsSaga)
+  yield fork(takeEvery, submitNumber.getType(), submitNumberSaga)
 }
 
 export default saga

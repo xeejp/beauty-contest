@@ -1,4 +1,5 @@
 import React from 'react'
+import throttle from 'react-throttle-render'
 
 import Chart1 from './Chart1'
 import Chart2 from './Chart2'
@@ -28,4 +29,4 @@ const Chart = ({participants}) => {
   )
 }
 
-export default Chart
+export default throttle(Chart, 500)

@@ -24,7 +24,7 @@ const Inputedpage = ({joined,inputs,round,maxround}) => (
 		<p>{joined}人中、{inputs}人が投票しました。</p>
 	</CardText>
 	<div style={{textAlign: "center"}}>
-		<CircularProgress size={2}/>
+	<CircularProgress size={140} thickness={5.0}/>
 	</div>
 </Card>
 )

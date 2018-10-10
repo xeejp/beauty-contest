@@ -54,7 +54,7 @@ class Option extends Component {
       <RaisedButton
         label={"適用"}
         primary={true}
-        onTouchTap={this.handleClose.bind(this)}
+        onClick={this.handleClose.bind(this)}
       />
     ]
     return (
